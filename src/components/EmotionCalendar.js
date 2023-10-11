@@ -1,32 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
-//import styles from './EmotionCalendar.module.css';
-import 'react-calendar/dist/Calendar.css'; // 기본 스타일
-
-const emotions = {
-  '2023-10-01': '😀',
-  '2023-10-10': '😢',
-  '2023-10-21': '😢',
-  '2023-10-24': '😀'
-};
+import axios from 'axios';
+import styles from './EmotionCalendar.module.css';
+import 'react-calendar/dist/Calendar.css';
 
 function App() {
+  const [emotions, setEmotions] = useState({}); // 초기값을 빈 객체로 설정
 
-  // 로컬 시간대로 변경, 하루씩 날짜 밀리는 것 방지
+  const emotionIcons = {
+    HAPPY: '😀',
+    SAD: '😢'
+  };
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/chatlogs/emotions/1')
+      .then(response => {
+        // console.log(response.data); 
+        setEmotions(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching emotions:', error);
+      });
+  }, []);
+
   const formatDateToLocalDateString = (date) => {
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요
+    const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
 
   const renderEmotionsAndDate = ({ date, view }) => {
     const formattedDate = formatDateToLocalDateString(date);
+    const emotion = emotions[formattedDate];
+    // console.log(formattedDate, emotion); 
 
-    if (view === 'month') {
+    if (view === 'month' && emotion) {
       return (
         <div>
-          {emotions[formattedDate] && <span>{emotions[formattedDate]}</span>}
+          <span>{emotionIcons[emotion]}</span>
         </div>
       );
     }
