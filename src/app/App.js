@@ -13,9 +13,7 @@ import OAuth2RedirectHandler from '../user/oauth2/OAuth2RedirectHandler';
 import NotFound from '../common/NotFound';
 
 import Layout from '../Layout';
-import SignInPage from '../pages/SignInPage';
-import SignUpPage from '../pages/SignUpPage';
-import MyPage from '../pages/MyPage';
+import MyPage from '../pages/MyPage'
 import NotFound2 from '../pages/NotFound';
 import MainPage from '../pages/MainPage';
 import ChatPage from '../pages/ChatPage';
@@ -83,7 +81,7 @@ class App extends Component {
           </div>
           <div className="app-body">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<MainPage />} />
               <Route
                   path="/login"
                   element={<Login authenticated={this.state.authenticated} />}
@@ -94,10 +92,8 @@ class App extends Component {
               />
               <Route element={<Layout />}>
                 <Route index element={<MainPage />} />
-                <Route path="/mypage" element={<MyPage />} />
-                <Route path="/chat" element={<ChatPage />} />
-                <Route path="/signin" element={<SignInPage />} />
-                <Route path="/signup" element={<SignUpPage />} />
+                <Route path="/myPage" element={<MyPage />} />
+                <Route path="chat/room/enter/:roomId" element={<ChatPage />} />
               </Route>
               <Route
                   path="/oauth2/redirect"

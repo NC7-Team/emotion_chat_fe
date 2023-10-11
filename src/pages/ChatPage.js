@@ -1,35 +1,134 @@
-import React, { Component } from 'react';
-import './ChatPage.css';
+import React, { useState, useEffect } from 'react';
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs/lib/stomp';
+import axios from 'axios';
 
-class ChatApp extends Component {
-  render() {
+const ChatPage = () => {
+    const [roomId, setRoomId] = useState('');
+    const [room, setRoom] = useState({});
+    const [sender, setSender] = useState('');
+    const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState([]);
+
+    useEffect(() => {
+        const savedRoomId = localStorage.getItem('wschat.roomId');
+        const savedSender = localStorage.getItem('wschat.sender');
+        if (savedRoomId && savedSender) {
+            setRoomId(savedRoomId);
+            setSender(savedSender);
+            findRoom();
+            connect();
+        }
+    }, []);
+
+    // const findRoom = () => {
+    //     axios.get(`/chat/room/${roomId}`, {
+    //         params: {
+    //             roomId: roomId
+    //         }
+    //     }).then(response => {
+    //         setRoom(response.data);
+    //     });
+    // };
+
+    const findRoom = async () => {
+        axios.get(`/chat/room/${roomId}`)
+            .then(response => {
+                setRoom(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching room:', error);
+            });
+    };
+
+
+    const sendMessage = () => {
+        const ws = new Stomp.over(new SockJS('/ws/chat'));
+
+        ws.send(
+            '/app/chat/message',
+            {},
+            JSON.stringify({
+                type: 'TALK',
+                roomId,
+                sender,
+                message
+            })
+        );
+        setMessage('');
+    };
+
+    const recvMessage = recv => {
+        setMessages(prevMessages => [
+            {
+                type: recv.type,
+                sender: recv.type === 'ENTER' ? '[알림]' : recv.sender,
+                message: recv.message
+            },
+            ...prevMessages
+        ]);
+    };
+
+    const connect = () => {
+        const ws = new Stomp.over(new SockJS('/ws/chat'));
+        let reconnect = 0;
+
+        ws.connect(
+            {},
+            frame => {
+                ws.subscribe(`/topic/chat/room/${roomId}`, message => {
+                    const recv = JSON.parse(message.body);
+                    recvMessage(recv);
+                });
+                ws.send('/app/chat/message', {}, JSON.stringify({ type: 'ENTER', roomId, sender }));
+            },
+            error => {
+                if (reconnect++ <= 5) {
+                    setTimeout(() => {
+                        console.log('connection reconnect');
+                        const newSock = new SockJS('/ws/chat');
+                        const newWs = Stomp.over(newSock);
+                        connect();
+                    }, 10 * 1000);
+                }
+            }
+        );
+    };
+
     return (
-      <div className="chat-app">
-        {/* 상단 네비게이션 바 */}
-        <div className="header">
-          <span>친구 목록</span>
-        </div>
-
-        {/* 채팅창 */}
-        <div className="chat-window">
-          {/* 채팅 메시지 목록 */}
-          <div className="message-list">
-            {/* 각각의 메시지 */}
-            <div className="message">
-              <div className="message-sender">친구 이름</div>
-              <div className="message-content">메시지 내용</div>
+        <div className="container" id="app">
+            <div>
+                <h2>{room.name}</h2>
             </div>
-          </div>
-
-          {/* 메시지 입력창 */}
-          <div className="message-input">
-            <input type="text" placeholder="메시지 입력" />
-            <button>전송</button>
-          </div>
+            <div className="input-group">
+                <div className="input-group-prepend">
+                    <label className="input-group-text">내용</label>
+                </div>
+                <input
+                    type="text"
+                    className="form-control"
+                    value={message}
+                    onChange={e => setMessage(e.target.value)}
+                    onKeyPress={e => {
+                        if (e.key === 'Enter') sendMessage();
+                    }}
+                />
+                <div className="input-group-append">
+                    <button className="btn btn-primary" type="button" onClick={sendMessage}>
+                        보내기
+                    </button>
+                </div>
+            </div>
+            <ul className="list-group">
+                {messages.map((message, index) => (
+                    <li key={index} className="list-group-item">
+                        {message.sender} - {message.message}
+                    </li>
+                ))}
+            </ul>
+            <div></div>
         </div>
-      </div>
     );
-  }
-}
+};
 
-export default ChatApp;
+export default ChatPage;

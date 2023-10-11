@@ -19,8 +19,6 @@ const headerStyle = {
 const Layout = () => {
   return (
     <div>
-
-
       <main>
         <Outlet />
       </main>
