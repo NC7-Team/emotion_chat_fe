@@ -3,7 +3,7 @@ const MyPage = () => {
   const isLoggedIn = false;
 
   if (!isLoggedIn) {
-    return <Navigate to="/signin" replace={true} />;
+    return <Navigate to="/Login" replace={true} />;
   }
   return <div>마이페이지</div>;
 };
