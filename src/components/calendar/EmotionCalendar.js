@@ -4,7 +4,7 @@ import axios from 'axios';
 import styles from './EmotionCalendar.module.css';
 import 'react-calendar/dist/Calendar.css';
 
-function react-calendar() {
+function App() {
   const [emotions, setEmotions] = useState({}); // 초기값을 빈 객체로 설정
 
   const emotionIcons = {
@@ -45,10 +45,10 @@ function react-calendar() {
   };
 
   return (
-    <div className="react-calendar">
+    <div className="App">
       <Calendar tileContent={renderEmotionsAndDate} />
     </div>
   );
 }
 
-export default react-calendar;
+export default App;
