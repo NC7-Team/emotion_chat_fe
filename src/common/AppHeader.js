@@ -22,7 +22,8 @@ class AppHeader extends Component {
                                         <NavLink to="/myPage">Record</NavLink>
                                     </li>
                                     <li>
-                                        <a onClick={this.props.onLogout}>Logout</a>
+                                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                                        <a href="#" onClick={this.props.onLogout}>Logout</a>
                                     </li>
                                 </ul>
                             ) : (
@@ -32,9 +33,6 @@ class AppHeader extends Component {
                                     </li>
                                     <li>
                                     <NavLink to="/myPage">Record</NavLink>
-                                    </li>
-                                    <li>
-
                                     </li>
                                 </ul>
                             )}

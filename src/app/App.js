@@ -5,7 +5,6 @@ import {
   Navigate
 } from 'react-router-dom';
 import AppHeader from '../common/AppHeader';
-import Home from '../home/Home';
 import Login from '../user/login/Login';
 import Signup from '../user/signup/Signup';
 import Profile from '../user/profile/Profile';
