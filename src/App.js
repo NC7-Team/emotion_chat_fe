@@ -1,25 +1,29 @@
 import React, { Component } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
+
 import Header from "./components/common/header/Header";
+
 import Login from "./user/login/Login";
 import Signup from "./user/signup/Signup";
 import Profile from "./user/profile/Profile";
-import OAuth2RedirectHandler from "./user/oauth2/OAuth2RedirectHandler";
+
 import NotFound from "./common/NotFound";
+import LoadingIndicator from "./common/LoadingIndicator";
 
 import MainPage from "./pages/MainPage";
-import LoginCheck from "./pages/LoginCheck";
+import MyPage from "./pages/MyPage";
+import PhotoPage from "./pages/PhotoPage";
 import QuillPage from "./pages/QuillPage";
+import LoginCheck from "./pages/LoginCheck";
+import ChattingPage from "./pages/ChattingPage";
 
-import LoadingIndicator from "./common/LoadingIndicator";
-import { getCurrentUser } from "./util/APIUtils";
 import { ACCESS_TOKEN } from "./constants";
+import { getCurrentUser } from "./util/APIUtils";
+import OAuth2RedirectHandler from "./user/oauth2/OAuth2RedirectHandler";
+
 import Alert from "react-s-alert";
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
-import MyPage from "./pages/MyPage";
-import PhotoPage from "./pages/PhotoPage";
-import ChattingPage from "./pages/ChattingPage";
 
 class App extends Component {
   constructor(props) {
@@ -96,7 +100,6 @@ class App extends Component {
               path="/signup"
               element={<Signup authenticated={this.state.authenticated} />}
             />
-
             <Route path="/myPage" element={<MyPage />} />
             <Route path="/logincheck" element={<LoginCheck />} />
             <Route path="/quill" element={<QuillPage />} />

@@ -6,7 +6,6 @@ import {
   GITHUB_AUTH_URL,
   ACCESS_TOKEN,
 } from "../../constants";
-import { Link } from "react-router-dom";
 import fbLogo from "../../img/fb-logo.png";
 import googleLogo from "../../img/google-logo.png";
 import githubLogo from "../../img/github-logo.png";
