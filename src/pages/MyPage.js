@@ -1,5 +1,5 @@
-import React from 'react';
-import EmotionCalendar from '../components/calendar/EmotionCalendar';
+import React from "react";
+import ReactCalendar from "../components/calendar/ReactCalendar";
 
 const MyPage = () => {
   /* const isLoggedIn = false;
@@ -11,7 +11,7 @@ const MyPage = () => {
 
   return (
     <div>
-      <EmotionCalendar /> {/* EmotionCalendar를 렌더링합니다. */}
+      <ReactCalendar />
     </div>
   );
 };
