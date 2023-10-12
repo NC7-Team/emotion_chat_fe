@@ -1,5 +1,5 @@
-import Room from "../components/Room";
-import RoomList from "../components/RoomList";
+import Room from '../components/chat/Room';
+import RoomList from '../components/chat/RoomList';
 
 export default function ChattingPage() {
   return (

@@ -1,4 +1,4 @@
-import useMessageStore from "../hooks/useMessageStore";
+import useMessageStore from "../../hooks/useMessageStore";
 
 export default function RoomList() {
   const messageStore = useMessageStore();

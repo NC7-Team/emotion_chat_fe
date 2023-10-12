@@ -1,21 +1,26 @@
-import useMessageStore from "../hooks/useMessageStore";
+import useMessageStore from "../../hooks/useMessageStore";
+
 
 export default function Room() {
   const messageStore = useMessageStore();
 
-  const { connected, messageEntered, messageLogs } = messageStore;
+  const {
+    connected,
+    messageEntered,
+    messageLogs,
+  } = messageStore;
 
-  const beforeUnloadListener = () => {
+  const beforeUnloadListener = (() => {
     if (connected) {
       messageStore.disconnect();
     }
-  };
+  });
 
-  window.addEventListener("beforeunload", beforeUnloadListener);
+  window.addEventListener('beforeunload', beforeUnloadListener);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    messageStore.sendMessage({ type: "message" });
+    messageStore.sendMessage({ type: 'message' });
   };
 
   const handleChangeInput = (event) => {
@@ -24,23 +29,33 @@ export default function Room() {
   };
 
   if (!connected) {
-    return null;
+    return (
+      null
+    );
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="message-to-send">메시지 입력</label>
+        <label htmlFor="message-to-send">
+          메시지 입력
+        </label>
         <input
           type="text"
           value={messageEntered}
           onChange={handleChangeInput}
         />
-        <button type="submit">전송</button>
+        <button
+          type="submit"
+        >
+          전송
+        </button>
       </form>
       <ul>
         {messageLogs.map((message) => (
-          <li key={message.id}>{message.value}</li>
+          <li key={message.id}>
+            {message.value}
+          </li>
         ))}
       </ul>
     </div>

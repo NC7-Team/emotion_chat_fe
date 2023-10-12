@@ -1,25 +1,25 @@
 import React, { Component } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import AppHeader from "../common/AppHeader";
-import Login from "../user/login/Login";
-import Signup from "../user/signup/Signup";
-import Profile from "../user/profile/Profile";
-import OAuth2RedirectHandler from "../user/oauth2/OAuth2RedirectHandler";
-import NotFound from "../common/NotFound";
+import Header from "./components/common/header/Header";
+import Login from "./user/login/Login";
+import Signup from "./user/signup/Signup";
+import Profile from "./user/profile/Profile";
+import OAuth2RedirectHandler from "./user/oauth2/OAuth2RedirectHandler";
+import NotFound from "./common/NotFound";
 
-import MainPage from "../pages/MainPage";
-import ChattingPage from "../pages/ChattingPage";
-import QuillPage from "../pages/QuillPage";
+import MainPage from "./pages/MainPage";
+import LoginCheck from "./pages/LoginCheck";
+import QuillPage from "./pages/QuillPage";
 
-import LoadingIndicator from "../common/LoadingIndicator";
-import { getCurrentUser } from "../util/APIUtils";
-import { ACCESS_TOKEN } from "../constants";
+import LoadingIndicator from "./common/LoadingIndicator";
+import { getCurrentUser } from "./util/APIUtils";
+import { ACCESS_TOKEN } from "./constants";
 import Alert from "react-s-alert";
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
-import "./App.css";
-import MyPage from "../pages/MyPage";
-import PhotoPage from "../pages/PhotoPage";
+import MyPage from "./pages/MyPage";
+import PhotoPage from "./pages/PhotoPage";
+import ChattingPage from "./pages/ChattingPage";
 
 class App extends Component {
   constructor(props) {
@@ -71,7 +71,7 @@ class App extends Component {
     return (
       <div className="app">
         <div className="app-top-box">
-          <AppHeader
+          <Header
             authenticated={this.state.authenticated}
             onLogout={this.handleLogout}
           />
@@ -81,7 +81,16 @@ class App extends Component {
             <Route path="/" element={<MainPage />} />
             <Route
               path="/login"
-              element={<Login authenticated={this.state.authenticated} />}
+              element={
+                this.state.authenticated ? (
+                  <Navigate to="/mypage" replace />
+                ) : (
+                  <Login
+                    authenticated={this.state.authenticated}
+                    reloadPage={true}
+                  />
+                )
+              }
             />
             <Route
               path="/signup"
@@ -89,9 +98,10 @@ class App extends Component {
             />
 
             <Route path="/myPage" element={<MyPage />} />
+            <Route path="/logincheck" element={<LoginCheck />} />
             <Route path="/quill" element={<QuillPage />} />
             <Route path="/photo" element={<PhotoPage />} />
-            <Route path="/photo/chat" element={<ChattingPage />} />
+            <Route path="/chat" element={<ChattingPage />} />
             <Route
               path="/oauth2/redirect"
               element={<OAuth2RedirectHandler />}
@@ -102,7 +112,7 @@ class App extends Component {
                 this.state.authenticated ? (
                   <Profile currentUser={this.state.currentUser} />
                 ) : (
-                  <Navigate to="/login" />
+                  <Navigate to="/login" replace />
                 )
               }
             />

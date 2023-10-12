@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import palette from '../../libs/styles/palette';
+import styled from "styled-components";
+import palette from "../../../libs/styles/palette";
 
 const StyledButton = styled.button`
   border: none;
