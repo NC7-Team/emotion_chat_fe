@@ -1,0 +1,30 @@
+/* 기본 날짜 텍스트를 숨김. (1일, 2일) => (1 2) */
+/* .react-calendar__tile--now abbr,
+.react-calendar__tile abbr {
+  display: none;
+}
+
+dateContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dateText {
+  font-size: 1rem;
+} */
+
+
+
+.tileSpan {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.emotionSpan {
+  display: block;
+  margin-top: 10px;
+}

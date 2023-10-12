@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import * as React from 'react';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import './MainPage.css';
 
 const MainPage = () => {
   return (
@@ -20,7 +21,6 @@ const MainPage = () => {
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
-      {'.'}
     </Typography>
   );
 };
@@ -28,7 +28,7 @@ const MainPage = () => {
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#A9E2F3', // 버튼 색상을 원하는 색상 코드로 변경
+      main: '#A9E2F3',
     },
   },
 });
@@ -54,14 +54,38 @@ const cards = [
   },
 ];
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Album() {
+  const [text, setText] = useState('');
+  const [subText, setSubText] = useState('');
+  const initialText = "오늘 당신의 기분은 어떤 가요?";
+  const subInitialText = "당신의 감정을 얼굴로 표현해 보세요!";
+  const [hoveredCard, setHoveredCard] = useState(null);
+  const typingSpeed = 100;
+
+  useEffect(() => {
+    const typeText = (text, setText, initialText) => {
+      let i = 0;
+      const intervalId = setInterval(() => {
+        if (i < initialText.length) {
+          setText(initialText.slice(0, i + 1));
+          i++;
+        } else {
+          clearInterval(intervalId);
+        }
+      }, typingSpeed);
+    };
+
+    typeText(text, setText, initialText);
+    setTimeout(() => {
+      typeText(subText, setSubText, subInitialText);
+    }, initialText.length * typingSpeed);
+  }, []);
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <main>
-        {/* Hero unit */}
         <Box
           sx={{
             bgcolor: 'background.paper',
@@ -77,22 +101,19 @@ export default function Album() {
               color="text.primary"
               gutterBottom
             >
-              Mood Canvas
+              <span className="hoverable-text">Mood Canvas</span>
             </Typography>
             <Typography
               variant="h7"
               align="center"
               color="text.secondary"
               paragraph
-              style={{ whiteSpace: 'pre-wrap' }}
+              sx={{ mt: 8 }}
             >
+              <span className="typing-animation">{text}</span>
               <br />
-              오늘 당신의 기분은 어떤가요?
-              <br />
-              <br />
-              당신의 감정을 얼굴로 표현해보세요!
+              <span className="typing-animation">{subText}</span>
             </Typography>
-
             <Stack
               sx={{ pt: 4 }}
               direction="row"
@@ -102,38 +123,41 @@ export default function Album() {
           </Container>
         </Box>
         <Container sx={{ py: 8 }} maxWidth="md">
-          {/* End hero unit */}
           <Grid container spacing={4} justifyContent="center">
             {cards.map((card) => (
               <Grid item key={card.id} xs={12} sm={6} md={4}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                  }}
-                >
-                  <CardMedia
-                    component="div"
+                <Link to="/chat/room">
+                  <Card
                     sx={{
-                      // 16:9
-                      pt: '56.25%',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      transition: 'transform 0.3s',
+                      transform: hoveredCard === card.id ? 'scale(1.2)' : 'scale(1)',
                     }}
-                    image={card.imageUrl}
-                  />
-                  <CardContent sx={{ flexGrow: 1, textAlign: 'center' }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {card.title}
-                    </Typography>
-                    <Typography>{card.description}</Typography>
-                  </CardContent>
-                </Card>
+                    onMouseEnter={() => setHoveredCard(card.id)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                  >
+                    <CardMedia
+                      component="div"
+                      sx={{
+                        pt: '56.25%',
+                      }}
+                      image={card.imageUrl}
+                    />
+                    <CardContent sx={{ flexGrow: 1, textAlign: 'center' }}>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {card.title}
+                      </Typography>
+                      <Typography>{card.description}</Typography>
+                    </CardContent>
+                  </Card>
+                </Link>
               </Grid>
             ))}
           </Grid>
         </Container>
       </main>
-      {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom></Typography>
         <Typography
@@ -145,7 +169,6 @@ export default function Album() {
           MoodCanvas@2023
         </Typography>
       </Box>
-      {/* End footer */}
     </ThemeProvider>
   );
 }
