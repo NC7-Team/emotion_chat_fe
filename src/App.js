@@ -100,11 +100,11 @@ class App extends Component {
               path="/signup"
               element={<Signup authenticated={this.state.authenticated} />}
             />
+            <Route path="/chat" element={<ChattingPage />} />
             <Route path="/myPage" element={<MyPage />} />
             <Route path="/logincheck" element={<LoginCheck />} />
             <Route path="/quill" element={<QuillPage />} />
             <Route path="/photo" element={<PhotoPage />} />
-            <Route path="/chat" element={<ChattingPage />} />
             <Route
               path="/oauth2/redirect"
               element={<OAuth2RedirectHandler />}
