@@ -24,9 +24,10 @@ class PhotoPage extends Component {
     const canvas = this.canvasRef.current;
     const video = this.videoRef.current;
     const context = canvas.getContext("2d");
-    context.translate(canvas.width, 0);
+
     context.scale(-1, 1);
-    context.drawImage(video, 0, 0, 400, 320);
+    context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
+    context.setTransform(1, 0, 0, 1, 0, 0);
   };
 
   posting = () => {
