@@ -4,8 +4,6 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Header from "./components/common/header/Header";
 
 import Login from "./user/login/Login";
-import Signup from "./user/signup/Signup";
-import Profile from "./user/profile/Profile";
 
 import NotFound from "./common/NotFound";
 import LoadingIndicator from "./common/LoadingIndicator";
@@ -96,10 +94,6 @@ class App extends Component {
                 )
               }
             />
-            <Route
-              path="/signup"
-              element={<Signup authenticated={this.state.authenticated} />}
-            />
             <Route path="/chat" element={<ChattingPage />} />
             <Route path="/myPage" element={<MyPage />} />
             <Route path="/logincheck" element={<LoginCheck />} />
@@ -108,16 +102,6 @@ class App extends Component {
             <Route
               path="/oauth2/redirect"
               element={<OAuth2RedirectHandler />}
-            />
-            <Route
-              path="/profile"
-              element={
-                this.state.authenticated ? (
-                  <Profile currentUser={this.state.currentUser} />
-                ) : (
-                  <Navigate to="/login" replace />
-                )
-              }
             />
             <Route path="*" element={<NotFound />} />
           </Routes>

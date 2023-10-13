@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink,useNavigate } from "react-router-dom";
 import "./Header.css";
 
 const AppHeader = ({ authenticated, onLogin, onLogout }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(authenticated);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsAuthenticated(authenticated);
@@ -17,6 +18,9 @@ const AppHeader = ({ authenticated, onLogin, onLogout }) => {
   const handleLogout = () => {
     onLogout();
     setIsAuthenticated(false);
+
+    // 메인 페이지("/")로 이동
+    navigate("/");
   };
 
   const headerStyle = {
