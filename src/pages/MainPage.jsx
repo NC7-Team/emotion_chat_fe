@@ -44,6 +44,7 @@ export default function Album() {
 
   const openModal = () => {
     setIsModalOpen(true);
+    window.alert("지금의 감정을 찍어주세요 !");
   };
 
   const closeModal = () => {
@@ -77,7 +78,6 @@ export default function Album() {
         setTimeout(typeSubText, typingSpeed);
       }
     };
-
     typeText();
   }, []);
 

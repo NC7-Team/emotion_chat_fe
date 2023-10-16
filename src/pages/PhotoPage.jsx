@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./PhotoPage.css";
 
 class PhotoPage extends Component {
   constructor(props) {
@@ -58,9 +59,9 @@ class PhotoPage extends Component {
         } else if (data === "angry") {
           window.location.href = "/chat/angry";
         } else if (data === "no_person") {
-          alert("사진에 사람이 없습니다");
+          alert("사진에 사람이 없습니다.");
         } else if (data === "no_file") {
-          alert("사진이 없습니다");
+          alert("사진이 없습니다.");
         } else if (data === "error") {
           alert("아무튼 오류");
         }
@@ -70,16 +71,14 @@ class PhotoPage extends Component {
   render() {
     return (
       <div>
-        <video ref={this.videoRef} width="320" height="240" autoPlay></video>
         <br />
-        <button type="button" id="webcamBtn" onClick={this.capturePhoto}>
-          캡쳐하기
-        </button>
+        <video ref={this.videoRef} className="video-container" autoPlay></video>
+        <br />
+        <br />
         <button type="button" id="sendBtn" onClick={this.posting}>
-          전송하기
+          감정 전송
         </button>
         <br />
-        <canvas ref={this.canvasRef} width="480" height="320"></canvas>
       </div>
     );
   }

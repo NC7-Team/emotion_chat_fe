@@ -8,8 +8,8 @@ const StyledButton = styled.button`
   color: white;
   outline: none;
   cursor: pointer;
+  background: #ceecf5; /* 배경색을 원하는 HEX 코드로 설정 */
 
-  background: ${palette.cyan[900]};
   &:hover {
     background: ${palette.cyan[50]};
   }
