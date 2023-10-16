@@ -1,0 +1,36 @@
+.Button {
+
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 18px;
+    white-space: nowrap;
+
+}
+
+/* 일반적인 기능 담당 버튼 CSS */
+.Button_default {
+
+    background-color: #ececec;
+    color: black;
+
+}
+
+/* 새로운 일기 작성, 일기 작성 완료, 수정 완료 기능 담당 버튼 CSS */
+.Button_positive {
+
+    background-color: #c1d1e9;
+    color: white;
+
+}
+
+/* 일기 삭제등 기능 담당 버튼 CSS */
+.Button_negative {
+
+    background-color: #fd565f;
+    color: white;
+
+}

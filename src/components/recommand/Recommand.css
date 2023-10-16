@@ -1,0 +1,29 @@
+.recommand-container {
+    position: absolute;
+    top: 70%;
+    right: 16%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.recommand-box {
+    border: 1px solid #ccc;
+    padding: 30px;
+    background-color: #f9f9f9;
+    width: 250px;
+    text-align: center;
+    margin: 20px; /* 여기를 20px로 수정해서 박스들 간격을 벌립니다 */
+    border-radius: 10px; /* 모서리를 10px로 만듭니다. */
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 10px; /* 텍스트 아래에 10px 간격을 둡니다. */
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 10px; /* 텍스트 아래에 10px 간격을 둡니다. */
+}
