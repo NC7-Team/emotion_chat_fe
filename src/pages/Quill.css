@@ -1,0 +1,12 @@
+.ql-custom-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .ql-custom-button:hover {
+    background-color: #0056b3;
+  }

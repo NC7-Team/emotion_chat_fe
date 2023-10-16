@@ -33,12 +33,19 @@ class PhotoPage extends Component {
 
   posting = () => {
     const canvas = this.canvasRef.current;
+    const video = this.videoRef.current;
+    const context = canvas.getContext("2d");
     const imgBase64 = canvas.toDataURL("image/jpeg", "image/octet-stream");
     const decodImg = atob(imgBase64.split(",")[1]);
+
+    context.scale(-1, 1);
+    context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
+    context.setTransform(1, 0, 0, 1, 0, 0);
 
     let array = [];
     for (let i = 0; i < decodImg.length; i++) {
       array.push(decodImg.charCodeAt(i));
+
     }
 
     const file = new Blob([new Uint8Array(array)], { type: "image/jpeg" });
