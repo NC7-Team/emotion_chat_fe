@@ -1,0 +1,78 @@
+.userMessage {
+    color: blue;
+  }
+  
+  .otherMessage {
+    color: green;
+  }
+  
+  .enter-message {
+    font-weight: bold; /* 입장 메시지 스타일 */
+    font-size: 30px;
+  }
+  
+  .chat-container {
+    max-height: 500px; /* 원하는 높이로 설정 */
+    width: 1200px;
+    overflow-y: auto;
+  }
+  
+  
+  /*  */
+  
+  
+  /* chat.css */
+  
+  .fade-out-enter-message {
+    opacity: 0;
+    transition: opacity 0.5s ease-out; /* 트랜지션 속성 적용 */
+  }
+  
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+  }
+  
+  .user-message {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .other-message {
+    background-color: #cce5ff;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .enter-message {
+    color: #666;
+  }
+  
+  .default-message {
+    background-color: #efefef;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  form {
+    display: flex;
+    margin-top: 10px;
+  }
+  
+  label {
+    margin-right: 10px;
+  }
+  

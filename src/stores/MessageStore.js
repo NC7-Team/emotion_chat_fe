@@ -1,10 +1,8 @@
-/* eslint-disable class-methods-use-this */
+import Stomp from "stompjs";
+import SockJS from "sockjs-client";
+import { messageService } from "../services/MessageService";
 
-import Stomp from 'stompjs';
-import SockJS from 'sockjs-client';
-import { messageService } from '../services/MessageService';
-
-const baseUrl = 'http://localhost:8080';
+const baseUrl = "http://localhost:8080";
 
 export default class MessageStore {
   constructor() {
@@ -19,17 +17,16 @@ export default class MessageStore {
     this.roomIndices = [1, 2, 3];
 
     this.currentRoomIndex = 0;
-    this.messageEntered = '';
+    this.messageEntered = "";
 
     this.messageLogs = [];
   }
 
-  connect(roomIndex) {
+  connect(roomIndex, authToken) {
     this.socket = new SockJS(`${baseUrl}/chat`);
     this.client = Stomp.over(this.socket);
 
     this.currentRoomIndex = roomIndex;
-
     this.subscribeMessageBroker(this.currentRoomIndex);
 
     this.connected = true;
@@ -37,29 +34,26 @@ export default class MessageStore {
   }
 
   subscribeMessageBroker(roomIndex) {
-    this.client.connect(
-      {},
-      () => {
-        this.client.subscribe(
-          `/subscription/chat/room/${roomIndex}`,
-          (messageReceived) => this.receiveMessage(messageReceived),
-          {},
-        );
+    this.client.connect({}, () => {
+      this.client.subscribe(
+        `/subscription/chat/room/${roomIndex}`,
+        (messageReceived) => this.receiveMessage(messageReceived),
+        {}
+      );
 
-        this.sendMessage({ type: 'enter' });
-      },
-    );
+      this.sendMessage({ type: "enter" });
+    });
   }
 
   disconnect() {
-    this.sendMessage({ type: 'quit' });
+    this.sendMessage({ type: "quit" });
 
     this.client.unsubscribe();
     this.client.disconnect();
 
     this.connected = false;
     this.currentRoomIndex = 0;
-    this.messageEntered = '';
+    this.messageEntered = "";
     this.messageLogs = [];
     this.publish();
   }
@@ -70,9 +64,7 @@ export default class MessageStore {
   }
 
   sendMessage({ type }) {
-    const message = type === 'message'
-      ? this.messageEntered
-      : '';
+    const message = type === "message" ? this.messageEntered : "";
 
     messageService.sendMessage({
       client: this.client,
@@ -84,20 +76,34 @@ export default class MessageStore {
       },
     });
 
-    this.messageEntered = '';
+    this.messageEntered = "";
     this.publish();
   }
 
   receiveMessage(messageReceived) {
     const message = JSON.parse(messageReceived.body);
-    this.messageLogs = [...this.messageLogs, this.formatMessage(message)];
+    const sentByUser =
+      message.type === "message" &&
+      message.value.includes(`사용자 ${this.userId}`);
+    this.messageLogs = [
+      ...this.messageLogs,
+      this.formatMessage(message, sentByUser),
+    ];
     this.publish();
   }
 
-  formatMessage(message) {
+  formatMessage(message, sentByUser) {
+    let messageType;
+    if (message.type === "message") {
+      messageType = sentByUser ? "userMessage" : "otherMessage";
+    } else if (message.type === "enter") {
+      messageType = "enterMessage";
+    }
     return {
       id: message.id,
-      value: `${message.value} (${new Date().toLocaleTimeString()})`,
+      value: message.value,
+      sentByUser,
+      type: messageType,
     };
   }
 
