@@ -1,5 +1,5 @@
 export const ACCESS_TOKEN = 'accessToken';
-export const API_BASE_URL = 'https://www.moodcanvas.site:8080';
+export const API_BASE_URL = 'http://www.moodcanvas.site/api';
 export const OAUTH2_REDIRECT_URI = 'https://www.moodcanvas.site/oauth2/redirect'
 
 
