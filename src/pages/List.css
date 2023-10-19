@@ -1,0 +1,40 @@
+.post-table {
+    border-collapse: separate; 
+    background-color: transparent;
+    border-spacing: 0; 
+    width: 60%;
+    margin-top: 20px;
+    border: none; 
+  }
+
+  .post-table colgroup {
+    border: none;
+  }
+  
+  
+.list-container {
+    display: flex;
+    border: none; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .list-heading {
+    text-align: center;
+  }
+  
+  
+  .post-table th,
+  .post-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .post-table th {
+    background-color: #f2f2f2;
+  }
+  

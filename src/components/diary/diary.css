@@ -1,0 +1,43 @@
+.diary-container {
+    margin-top: 110px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f7f7f7;
+    width: 500px;
+    height: 500px;
+    align-self: flex-end; 
+    position: absolute;
+    left: 15%;
+  }
+
+  .Editor .editor_section {
+  
+      margin-bottom: 40px;
+  
+  }
+  
+  /* Editor h4 글 영역 폰트 크기, 굵기 지정 */
+  .Editor h4 {
+  
+      font-size: 22px;
+      font-weight: bold;
+  
+  }
+
+  /* 일기 작성칸 CSS */
+  .Editor textarea {
+  
+      width: 100%;
+      min-height: 200px;
+      box-sizing: border-box;
+      resize: vertical;
+  }
+  
+  /* 하단 버튼 영역 위치 */
+  .Editor .bottom_section {
+  
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  
+  }
