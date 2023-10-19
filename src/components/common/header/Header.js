@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink,useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Header.css";
 
 const AppHeader = ({ authenticated, onLogin, onLogout }) => {
@@ -24,7 +24,9 @@ const AppHeader = ({ authenticated, onLogin, onLogout }) => {
   };
 
   const headerStyle = {
-    background: "linear-gradient(to bottom, #B5E8EE, rgba(255, 255, 255, 0.8))",
+    background:
+      "linear-gradient(to bottom, #B4D5ED , rgba(255, 255, 255, 0.8))",
+    height: "150px",
   };
 
   return (

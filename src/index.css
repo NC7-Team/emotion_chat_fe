@@ -50,14 +50,14 @@ body {
 **/
 
 a {
-  color: #2098f3;
+  color: rgb(121, 119, 119);
   text-decoration: none;
   word-wrap: break-word;
   cursor: pointer;
 }
 
 a:hover {
-  color: #40a9ff;
+  color: white;
   text-decoration: none;
 }
 

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -10,6 +11,7 @@ import CardContent from "@mui/material/CardContent";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./MainPage.css";
 import PhotoPage from "./PhotoPage";
+import Footer from "../components/common/footer/footer.js";
 
 const cards = [
   {
@@ -26,8 +28,14 @@ const cards = [
   },
   {
     id: 2,
-    title: <Typography variant="body2">Emotion Sparring Room</Typography>,
-    description: <Typography variant="caption">감정 스파링</Typography>,
+    title: (
+      <Link to="/perchat">
+        <Typography variant="body2">Emotion Sparring Room</Typography>
+      </Link>
+    ),
+    description: (
+      <Typography variant="caption">감정 스파링</Typography>
+    ),
     imageUrl: "https://source.unsplash.com/random?nature",
   },
 ];
@@ -81,6 +89,12 @@ export default function Album() {
     typeText();
   }, []);
 
+  const handleCardClick = (card) => {
+    if (card.id === 1) {
+      openModal();
+    }
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <main ref={mainRef}>
@@ -122,7 +136,7 @@ export default function Album() {
           <Grid container spacing={4} justifyContent="center">
             {cards.map((card) => (
               <Grid item key={card.id} xs={12} sm={6} md={4}>
-                <div onClick={openModal}>
+                <div onClick={() => handleCardClick(card)}>
                   <Card
                     sx={{
                       height: "100%",
@@ -155,6 +169,7 @@ export default function Album() {
           </Grid>
         </Container>
       </main>
+      <Footer />
       {isModalOpen && (
         <div className="modal">
           <div className="modal-content">
