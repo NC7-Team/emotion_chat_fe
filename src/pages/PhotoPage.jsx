@@ -1,12 +1,14 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "./PhotoPage.css";
+import { withRouter } from "./WithRouter";
 
 class PhotoPage extends Component {
   constructor(props) {
     super(props);
-
     this.videoRef = React.createRef();
     this.canvasRef = React.createRef();
+    this.posting = this.posting.bind(this);
   }
 
   componentDidMount() {
@@ -21,26 +23,24 @@ class PhotoPage extends Component {
     }
   }
 
-  capturePhoto = () => {
-    const canvas = this.canvasRef.current;
-    const video = this.videoRef.current;
-    const context = canvas.getContext("2d");
-
-    context.scale(-1, 1);
-    context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
-    context.setTransform(1, 0, 0, 1, 0, 0);
-  };
-
   posting = () => {
     const canvas = this.canvasRef.current;
     const video = this.videoRef.current;
     const context = canvas.getContext("2d");
-    const imgBase64 = canvas.toDataURL("image/jpeg", "image/octet-stream");
-    const decodImg = atob(imgBase64.split(",")[1]);
+
+    let imgBase64;
+    let decodImg;
+    let file;
+    let fileName;
+    let emotion;
 
     context.scale(-1, 1);
     context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
     context.setTransform(1, 0, 0, 1, 0, 0);
+
+    imgBase64 = canvas.toDataURL("image/jpeg", "image/octet-stream");
+    decodImg = atob(imgBase64.split(",")[1]);
+
 
     let array = [];
     for (let i = 0; i < decodImg.length; i++) {
@@ -48,31 +48,26 @@ class PhotoPage extends Component {
 
     }
 
-    const file = new Blob([new Uint8Array(array)], { type: "image/jpeg" });
-    const fileName = "canvas_img_" + new Date().getMilliseconds() + ".jpg";
+    file = new Blob([new Uint8Array(array)], { type: "image/jpeg" });
+    fileName = "canvas_img_" + new Date().getMilliseconds() + ".jpg";
     let formData = new FormData();
     formData.append("uploadFile", file, fileName);
 
-    fetch("/face", {
-      method: "POST",
-      body: formData,
+    axios.post("/face", formData).then(response => {
+      if (response.data === "no_person") {
+        alert("사진에 사람이 없습니다")
+        return
+      } else if (response.data === "ANGRY") {
+        emotion = 1;
+      } else if (response.data === "SAD") {
+        emotion = 2;
+      } else if (response.data === "HAPPY") {
+        emotion = 3;
+      } else if (response.data === "NEUTRAL") {
+        emotion = 3;
+      }
+      this.props.navigate('/chat', { state: { id: emotion } })
     })
-      .then((response) => response.text())
-      .then((data) => {
-        if (data === "happy") {
-          window.location.href = "/chat/happy";
-        } else if (data === "sad") {
-          window.location.href = "/chat/sad";
-        } else if (data === "angry") {
-          window.location.href = "/chat/angry";
-        } else if (data === "no_person") {
-          alert("사진에 사람이 없습니다.");
-        } else if (data === "no_file") {
-          alert("사진이 없습니다.");
-        } else if (data === "error") {
-          alert("아무튼 오류");
-        }
-      });
   };
 
   render() {
@@ -80,6 +75,7 @@ class PhotoPage extends Component {
       <div>
         <br />
         <video ref={this.videoRef} className="video-container" autoPlay></video>
+        <canvas ref={this.canvasRef} className="canvas" hidden></canvas>
         <br />
         <br />
         <button type="button" id="sendBtn" onClick={this.posting}>
@@ -91,4 +87,4 @@ class PhotoPage extends Component {
   }
 }
 
-export default PhotoPage;
+export default withRouter(PhotoPage);

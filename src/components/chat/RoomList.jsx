@@ -1,9 +1,21 @@
 import useMessageStore from "../../hooks/useMessageStore";
+import { useLocation } from "react-router-dom";
 import './list.css';
 import UserList from "./userList";
+import { useEffect } from "react";
 
 export default function RoomList() {
   const messageStore = useMessageStore();
+
+  const location = useLocation();
+  useEffect(() => {
+    let emotion = location.state['id'];
+    handleClickEnterRoom({
+      previousRoomIndex: 0,
+      newRoomIndex: emotion,
+    });
+  }, [location])
+
 
   const getRoomName = (roomIndex) => {
     switch (roomIndex) {
@@ -20,8 +32,7 @@ export default function RoomList() {
 
   const { connected, currentRoomIndex, roomIndices } = messageStore;
 
-    //const [showEnterMessage, setShowEnterMessage] = useState(true);
-    const roomId = messageStore.getCurrentRoomId();
+  const roomId = messageStore.getCurrentRoomId();
 
 
   const handleClickEnterRoom = ({ newRoomIndex }) => {
@@ -36,12 +47,9 @@ export default function RoomList() {
   };
 
   return (
-    
     <div className="list-wrapper" style={{ position: 'absolute', left: '200px' }}>
     <div className="room-list-container"> 
       <ul className="room-list">
-
-        
         {roomIndices.map((roomIndex) => (
           <li key={roomIndex} className="room-list-item">
             <button
@@ -53,8 +61,7 @@ export default function RoomList() {
                   newRoomIndex: roomIndex,
                 })
               }
-            >
-              
+            >              
               {getRoomName(roomIndex)} 채팅방
             </button>
           </li>
