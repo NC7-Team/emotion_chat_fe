@@ -22,6 +22,10 @@ export default class MessageStore {
     this.messageLogs = [];
   }
 
+  getCurrentRoomId() {
+    return this.currentRoomIndex;
+  }
+
   connect(roomIndex, authToken) {
     this.socket = new SockJS(`${baseUrl}/chat`);
     this.client = Stomp.over(this.socket);

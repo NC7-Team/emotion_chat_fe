@@ -1,0 +1,12 @@
+.diary-container {
+    margin-top: 110px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f7f7f7;
+    width: 500px;
+    height: 500px;
+    align-self: flex-end; 
+    position: absolute;
+    left: 15%;
+    
+  }

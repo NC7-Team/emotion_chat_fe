@@ -1,4 +1,6 @@
 import useMessageStore from "../../hooks/useMessageStore";
+import './list.css';
+import UserList from "./userList";
 
 export default function RoomList() {
   const messageStore = useMessageStore();
@@ -18,6 +20,10 @@ export default function RoomList() {
 
   const { connected, currentRoomIndex, roomIndices } = messageStore;
 
+    //const [showEnterMessage, setShowEnterMessage] = useState(true);
+    const roomId = messageStore.getCurrentRoomId();
+
+
   const handleClickEnterRoom = ({ newRoomIndex }) => {
     if (connected) {
       messageStore.disconnect(currentRoomIndex);
@@ -30,10 +36,14 @@ export default function RoomList() {
   };
 
   return (
-    <div>
-      <ul>
+    
+    <div className="list-wrapper" style={{ position: 'absolute', left: '200px' }}>
+    <div className="room-list-container"> 
+      <ul className="room-list">
+
+        
         {roomIndices.map((roomIndex) => (
-          <li key={roomIndex}>
+          <li key={roomIndex} className="room-list-item">
             <button
               type="button"
               disabled={roomIndex === currentRoomIndex}
@@ -44,6 +54,7 @@ export default function RoomList() {
                 })
               }
             >
+              
               {getRoomName(roomIndex)} 채팅방
             </button>
           </li>
@@ -56,6 +67,8 @@ export default function RoomList() {
       >
         연결 종료
       </button>
+      <UserList roomId={roomId} />
+    </div>
     </div>
   );
 }

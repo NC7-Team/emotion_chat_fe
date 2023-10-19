@@ -1,0 +1,28 @@
+.list-wrapper {
+    margin-top: 110px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f7f7f7;
+    width: 500px; 
+    height: 600px; 
+
+  }
+
+.room-list-container {
+    padding: 10px; 
+  }
+  
+.user-list-container {
+    padding: 10px; 
+  }
+  
+.room-list {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    padding: 0; 
+  }
+  
+.room-list-item {
+    margin-right: 10px; 
+  }
