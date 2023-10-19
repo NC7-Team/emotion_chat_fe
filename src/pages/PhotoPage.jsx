@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import axios from "axios";
 import "./PhotoPage.css";
 import { withRouter } from "./WithRouter";
 
-class PhotoPage extends Component {
-  constructor(props) {
-    super(props);
+class PhotoPage extends React.Component {
+  constructor() {
+    super();
     this.videoRef = React.createRef();
     this.canvasRef = React.createRef();
     this.posting = this.posting.bind(this);
@@ -53,7 +53,7 @@ class PhotoPage extends Component {
     let formData = new FormData();
     formData.append("uploadFile", file, fileName);
 
-    axios.post("/face", formData).then(response => {
+    axios.post("http://localhost:8080/face", formData).then(response => {
       if (response.data === "no_person") {
         alert("사진에 사람이 없습니다")
         return
