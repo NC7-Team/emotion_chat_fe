@@ -1,0 +1,12 @@
+.recommend-container {
+    margin-top: 110px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f7f7f7;
+    width: 350px;
+    height: 250px; 
+    align-self: flex-end;
+    position: absolute;
+    top: 400px;
+    right: 15%;
+}

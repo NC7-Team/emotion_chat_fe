@@ -1,19 +1,20 @@
-import React from 'react';
-import EmotionCalendar from '../components/calendar/EmotionCalendar';
+import React from "react";
+import ReactCalendar from "../components/calendar/ReactCalendar";
+import Diary from "../components/diary/Diary";
+import Recommend from "../components/recommend/Recommend";
 
-const MyPage = () => {
-  /* const isLoggedIn = false;
-  if (!isLoggedIn) {
-    return <Navigate to="/login" replace={true} />;
-  }
-  return <div>마이페이지</div>;
-  */
-
+export default function MyPage() {
   return (
-    <div>
-      <EmotionCalendar /> {/* EmotionCalendar를 렌더링합니다. */}
+    <div className="my-page">
+      <div className="diary-area">
+        <Diary />
+      </div>
+      <div>
+        <ReactCalendar />
+      </div>
+      <div className="recommend-area">
+        <Recommend />
+      </div>
     </div>
   );
-};
-
-export default MyPage;
+}
