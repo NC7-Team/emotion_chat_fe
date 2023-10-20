@@ -24,27 +24,24 @@ function OAuth2RedirectHandler() {
     localStorage.setItem(ACCESS_TOKEN, token);
     console.log("ACCESS_TOKEN"+ACCESS_TOKEN);
     return (
-    //   <Navigate
-    //     to={{
-    //       pathname: "/loginCheck",
-    //       state: { from: location },
-    //     }}
-    //   />
-    // );
-        <>ddd1</>
-      );
+      <Navigate
+        to={{
+          pathname: "/loginCheck",
+          state: { from: location },
+        }}
+      />
+    );
   } else {
     return (
-      // <Navigate
-      //   to={{
-      //     pathname: "/login",
-      //     state: {
-      //       from: location,
-      //       error: error,
-      //     },
-      //   }}
-      // />
-        <>ddd2</>
+      <Navigate
+        to={{
+          pathname: "/login",
+          state: {
+            from: location,
+            error: error,
+          },
+        }}
+      />
     );
   }
 }
