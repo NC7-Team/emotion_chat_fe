@@ -1,6 +1,6 @@
 import React from "react";
 import { ACCESS_TOKEN } from "../../constants";
-import { Navigate, useLocation } from "react-router-dom";
+import {Link, Navigate, useLocation} from "react-router-dom";
 
 function OAuth2RedirectHandler() {
     console.log("들어옴!!");
@@ -24,16 +24,16 @@ function OAuth2RedirectHandler() {
     localStorage.setItem(ACCESS_TOKEN, token);
     console.log("ACCESS_TOKEN"+ACCESS_TOKEN);
     return (
-      <Navigate
+      <Link
         to={{
-          pathname: "/login",
+          pathname: "/mypage",
           state: { from: location },
         }}
       />
     );
   } else {
     return (
-      <Navigate
+      <Link
         to={{
           pathname: "/login",
           state: {
