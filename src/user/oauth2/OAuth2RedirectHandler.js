@@ -14,18 +14,18 @@ function OAuth2RedirectHandler() {
       : decodeURIComponent(results[1].replace(/\+/g, " "));
   }
 
-  console.log("token" + token);
 
   const token = getUrlParameter("token");
   const error = getUrlParameter("error");
 
+  console.log("token" + token);
   if (token) {
     localStorage.setItem(ACCESS_TOKEN, token);
     console.log("ACCESS_TOKEN"+ACCESS_TOKEN);
     return (
       <Navigate
         to={{
-          pathname: "/",
+          pathname: "/myapge",
           state: { from: location },
         }}
       />
@@ -34,7 +34,7 @@ function OAuth2RedirectHandler() {
     return (
       <Navigate
         to={{
-          pathname: "/",
+          pathname: "/login",
           state: {
             from: location,
             error: error,
