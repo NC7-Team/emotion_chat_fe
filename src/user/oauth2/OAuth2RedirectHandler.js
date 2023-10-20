@@ -26,7 +26,7 @@ function OAuth2RedirectHandler() {
     return (
       <Navigate
         to={{
-          pathname: "/myPage",
+          pathname: "/loginCheck",
           state: { from: location },
         }}
       />

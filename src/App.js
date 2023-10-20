@@ -22,6 +22,7 @@ import OAuth2RedirectHandler from "./user/oauth2/OAuth2RedirectHandler";
 import Alert from "react-s-alert";
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
+import Signup from "./user/signup/Signup";
 
 class App extends Component {
   constructor(props) {
@@ -81,6 +82,7 @@ class App extends Component {
         <div className="app-body">
           <Routes>
             <Route path="/" element={<MainPage />} />
+
             <Route
               path="/login"
               element={
@@ -99,9 +101,8 @@ class App extends Component {
             <Route path="/logincheck" element={<LoginCheck />} />
             <Route path="/quill" element={<QuillPage />} />
             <Route path="/photo" element={<PhotoPage />} />
-            <Route
-              path="/oauth2/redirect"
-                element={<MyPage />}
+            <Route path="/oauth2"
+                element={<OAuth2RedirectHandler />}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>
