@@ -102,7 +102,10 @@ class App extends Component {
             <Route path="/quill" element={<QuillPage />} />
             <Route path="/photo" element={<PhotoPage />} />
             <Route path="/oauth"
-                element={<OAuth2RedirectHandler />}
+                   element={<OAuth2RedirectHandler />}
+            />
+            <Route path="/test"
+                   element={<OAuth2RedirectHandler />}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -14,6 +14,9 @@ class AppHeader extends Component {
                     <div className="app-branding">
                         <Link to="/" className="app-title">Mood Canvas</Link>
                     </div>
+                    <div className="app-branding">
+                        <Link to="/test" className="app-title">test</Link>
+                    </div>
                     <div className="app-options">
                         <nav className="app-nav">
                             {this.props.authenticated ? (
