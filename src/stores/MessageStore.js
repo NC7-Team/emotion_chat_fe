@@ -88,7 +88,7 @@ export default class MessageStore {
     const message = JSON.parse(messageReceived.body);
     const sentByUser =
       message.type === "message" &&
-      message.value.includes(`사용자 ${this.userId}`);
+      message.value.includes(`${this.userId}`);
     this.messageLogs = [
       ...this.messageLogs,
       this.formatMessage(message, sentByUser),

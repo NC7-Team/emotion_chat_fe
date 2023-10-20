@@ -1,7 +1,7 @@
 import useMessageStore from "../../hooks/useMessageStore";
 import { useLocation } from "react-router-dom";
 import './list.css';
-import UserList from "./userList";
+import UserList from "./UserList";
 import { useEffect } from "react";
 
 export default function RoomList() {
