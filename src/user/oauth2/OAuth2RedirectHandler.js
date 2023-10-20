@@ -14,11 +14,14 @@ function OAuth2RedirectHandler() {
       : decodeURIComponent(results[1].replace(/\+/g, " "));
   }
 
+  console.log("token" + token);
+
   const token = getUrlParameter("token");
   const error = getUrlParameter("error");
 
   if (token) {
     localStorage.setItem(ACCESS_TOKEN, token);
+    console.log("ACCESS_TOKEN"+ACCESS_TOKEN);
     return (
       <Navigate
         to={{
