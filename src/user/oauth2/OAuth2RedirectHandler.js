@@ -3,6 +3,7 @@ import { ACCESS_TOKEN } from "../../constants";
 import { Navigate, useLocation } from "react-router-dom";
 
 function OAuth2RedirectHandler() {
+    console.log("들어옴!!");
   const location = useLocation();
 
   function getUrlParameter(name) {
