@@ -1,105 +1,97 @@
 import React, { useState, useEffect } from "react";
-import usePerMessageStore from "../../hooks/usePerMessageStore";
+import useMessageStore from '../../hooks/useMessageStore';
 import './chat.css';
-import UserList from "./UserList";
 
-
-const PerRoom = () => {
-  const permessageStore = usePerMessageStore();
-  const [showEnterMessage, setShowEnterMessage] = useState(true);
-
+const Room = () => {
+  const messageStore = useMessageStore();
 
   const {
     connected,
     messageEntered,
     messageLogs,
-  } = permessageStore;
-
-  const roomId = permessageStore.getCurrentRoomId();
+  } = messageStore;
 
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowEnterMessage(false);
-    }, 3000);
 
-    return () => clearTimeout(timeout); 
-  }, []);
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     setShowEnterMessage(false);
+  //   }, 3000);
+
+  //   return () => clearTimeout(timeout); 
+  // }, []);
 
   const beforeUnloadListener = (() => {
     if (connected) {
-      permessageStore.disconnect();
+      messageStore.disconnect();
     }
   });
 
   window.addEventListener('beforeunload', beforeUnloadListener);
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    permessageStore.sendMessage({ type: 'message' });
+    messageStore.sendMessage({ type: 'message' });
   };
 
   const handleChangeInput = (event) => {
     const { value } = event.target;
-    permessageStore.changeInput(value);
+    messageStore.changeInput(value);
   };
-
-  
 
   if (!connected) {
     return null;
   }
 
+  // 채팅방의 이름을 표시하는 변수
+  let roomName = "";
+
+  // 채팅방의 이름을 설정
+  // if (window.location.pathname.includes("happiness")) {
+  // roomName = "기쁨";
+  // } else if (window.location.pathname.includes("sadness")) {
+  // roomName = "슬픔";
+  // } else if (window.location.pathname.includes("anger")) {
+  //  roomName = "화남";
+  // }
+
   return (
-    <div className="chat-wrapper">
-      {showEnterMessage && (
-        <div className="enter-message-container ">
-          {messageLogs.map((message, index) => (
-            message.type === 'enterMessage' && (
-              <div
-                key={index}
-                className="enter-message"
-              >
-                {message.value}
-              </div>
-            )
-          ))}
-        </div>
-      )}
-
-<UserList roomId={roomId} /> 
-
-
-<div className="user-list-container">
-      </div>
+    <div className="chat-wrapper" style={{ position: 'absolute', right: '200px' }}>
+      <h2>{roomName} Emotion Chat</h2>
       <div className="chat-container">
         <ul className="message-list">
           {messageLogs.map((message, index) => (
-            message.type !== 'enterMessage' && (
-              <li key={index} className={message.sentByUser ? 'userMessage' : 'otherMessage'}>
+            <li
+              key={index}
+              className={message.sentByUser ? 'userMessage' : 'otherMessage'}
+            >
+              <div
+                className="bubble"
+                style={{
+                  backgroundColor: message.sentByUser ? '#c6e3fa' : '#BDBDBD ',
+                }}
+              >
                 {message.value}
-              </li>
-            )
+              </div>
+            </li>
           ))}
+        
         </ul>
+
+
+
         <form onSubmit={handleSubmit} className="message-input-form">
-          <label htmlFor="message-to-send">메시지 입력</label>
           <input
             type="text"
             value={messageEntered}
             onChange={handleChangeInput}
             className="message-input"
           />
-          <button type="submit" className="submit-button">전송</button>
+          <button type="submit" className="submit-button">send</button>
         </form>
       </div>
-      <div style={{ position: "relative", height: "500px" }}>
-</div>
     </div>
   );
-  
 }
 
-export default PerRoom;
-
+export default Room;

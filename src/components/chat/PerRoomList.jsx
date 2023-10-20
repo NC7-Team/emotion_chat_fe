@@ -1,27 +1,44 @@
-import usePerMessageStore from "../../hooks/usePerMessageStore";
-import './list.css'
+import useMessageStore from "../../hooks/useMessageStore";
+import './list.css';
+import UserList from "./UserList";
 
-export default function PerRoomList() {
-  const messagePerStore = usePerMessageStore();
+export default function RoomList() {
+  const messageStore = useMessageStore();
 
-  const { connected, currentRoomIndex, roomIndices } = messagePerStore;
+  // const location = useLocation();
+  // useEffect(() => {
+  //   let emotion = location.state['id'];
+  //   handleClickEnterRoom({
+  //     previousRoomIndex: 0,
+  //     newRoomIndex: emotion,
+  //   });
+  // }, [location])
+
+
+
+
+  const { connected, currentRoomIndex, roomIndices } = messageStore;
+
+  const roomId = messageStore.getCurrentRoomId();
+
 
   const handleClickEnterRoom = ({ newRoomIndex }) => {
     if (connected) {
-      messagePerStore.disconnect(currentRoomIndex);
+      messageStore.disconnect(currentRoomIndex);
     }
-    messagePerStore.connect(newRoomIndex);
+    messageStore.connect(newRoomIndex);
   };
 
   const handleClickQuitRoom = async () => {
-    messagePerStore.disconnect(currentRoomIndex);
+    messageStore.disconnect(currentRoomIndex);
   };
 
   return (
-    <div>
+    <div className="list-wrapper" style={{ position: 'absolute', left: '200px' }}>
+    <div className="room-list-container"> 
       <ul className="room-list">
         {roomIndices.map((roomIndex) => (
-          <li key={roomIndex}>
+          <li key={roomIndex} className="room-list-item">
             <button
               type="button"
               disabled={roomIndex === currentRoomIndex}
@@ -31,8 +48,8 @@ export default function PerRoomList() {
                   newRoomIndex: roomIndex,
                 })
               }
-            >
-            다이다이 채팅방
+            >              
+              e다이다이 채팅방
             </button>
           </li>
         ))}
@@ -44,6 +61,8 @@ export default function PerRoomList() {
       >
         연결 종료
       </button>
+      <UserList roomId={roomId} />
+    </div>
     </div>
   );
 }

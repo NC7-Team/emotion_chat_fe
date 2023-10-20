@@ -14,6 +14,7 @@ import PhotoPage from "./pages/PhotoPage";
 import QuillPage from "./pages/QuillPage";
 import LoginCheck from "./pages/LoginCheck";
 import ChattingPage from "./pages/ChattingPage";
+import PerChattingPage from "./pages/PerChattingPage";
 
 import { ACCESS_TOKEN } from "./constants";
 import { getCurrentUser } from "./util/APIUtils";
@@ -94,6 +95,7 @@ class App extends Component {
                 )
               }
             />
+            <Route path="/perchat" element={<PerChattingPage />} />
             <Route path="/chat" element={<ChattingPage />} />
             <Route path="/myPage" element={<MyPage />} />
             <Route path="/logincheck" element={<LoginCheck />} />
