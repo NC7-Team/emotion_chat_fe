@@ -95,7 +95,7 @@ class App extends Component {
               }
             />
             <Route path="/chat" element={<ChattingPage />} />
-            <Route path="/myPage" element={<MyPage />} />
+            <Route path="/myPage2" element={<MyPage />} />
             <Route path="/logincheck" element={<LoginCheck />} />
             <Route path="/quill" element={<QuillPage />} />
             <Route path="/photo" element={<PhotoPage />} />

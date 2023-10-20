@@ -24,16 +24,16 @@ function OAuth2RedirectHandler() {
     localStorage.setItem(ACCESS_TOKEN, token);
     console.log("ACCESS_TOKEN"+ACCESS_TOKEN);
     return (
-      <Link
+      <Navigate
         to={{
-          pathname: "/mypage",
+          pathname: "/myPage",
           state: { from: location },
         }}
       />
     );
   } else {
     return (
-      <Link
+      <Navigate
         to={{
           pathname: "/login",
           state: {
