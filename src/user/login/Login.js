@@ -4,7 +4,7 @@ import {
     FACEBOOK_AUTH_URL,
     GOOGLE_AUTH_URL,
     KAKAO_AUTH_URL,
-    // NAVER_AUTH_URL, /* 다른 상수들도 임포트하세요 */
+    NAVER_AUTH_URL /* 다른 상수들도 임포트하세요 */
 } from "../../constants";
 import fbLogo from "../../img/fb-logo.png";
 import googleLogo from "../../img/google-logo.png";
@@ -38,7 +38,7 @@ class SocialLogin extends Component {
                     <img src={kakaoLogo} alt="Kakao" /> Log in with Kakao
                 </a>
 
-                <a className="btn btn-block social-btn github" href={KAKAO_AUTH_URL}>
+                <a className="btn btn-block social-btn github" href={NAVER_AUTH_URL}>
                     <img src={naverLogo} alt="Naver" /> Log in with Naver
                 </a>
 
