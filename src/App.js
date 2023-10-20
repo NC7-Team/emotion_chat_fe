@@ -101,7 +101,7 @@ class App extends Component {
             <Route path="/photo" element={<PhotoPage />} />
             <Route
               path="/oauth2/redirect"
-                element={<OAuth2RedirectHandler />}
+                element={<MyPage />}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>
