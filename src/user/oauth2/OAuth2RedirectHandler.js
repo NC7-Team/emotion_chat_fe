@@ -31,7 +31,8 @@ function OAuth2RedirectHandler() {
     //     }}
     //   />
     // );
-      ddd1)
+        <>ddd1</>
+      );
   } else {
     return (
       // <Navigate
@@ -43,7 +44,7 @@ function OAuth2RedirectHandler() {
       //     },
       //   }}
       // />
-        ddd2
+        <>ddd2</>
     );
   }
 }
