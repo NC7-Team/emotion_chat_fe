@@ -11,8 +11,8 @@ class AppHeader extends Component {
         return (
             <header className="app-header" style={headerStyle}>
                 <div className="container">
-                    <div className="app-branding">
-                        <Link to="/" className="app-title">Mood Canvas</Link>
+                    <div className="app-branding2">
+                        <Link to="/" className="app-title2">Mood Canvas</Link>
                     </div>
                     <div className="app-branding">
                         <Link to="/test" className="app-title">test</Link>

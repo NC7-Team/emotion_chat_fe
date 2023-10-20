@@ -105,7 +105,7 @@ class App extends Component {
                    element={<OAuth2RedirectHandler />}
             />
             <Route path="/test"
-                   element={<OAuth2RedirectHandler />}
+                   element={<MyPage />}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>
