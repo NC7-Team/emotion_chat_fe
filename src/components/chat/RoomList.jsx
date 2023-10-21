@@ -1,7 +1,7 @@
 import useMessageStore from "../../hooks/useMessageStore";
 import { useLocation } from "react-router-dom";
 import './list.css';
-import UserList from "./UserList";
+import UserList from "./userList";
 import { useEffect } from "react";
 
 export default function RoomList() {
@@ -48,34 +48,34 @@ export default function RoomList() {
 
   return (
     <div className="list-wrapper" style={{ position: 'absolute', left: '200px' }}>
-    <div className="room-list-container"> 
-      <ul className="room-list">
-        {roomIndices.map((roomIndex) => (
-          <li key={roomIndex} className="room-list-item">
-            <button
-              type="button"
-              disabled={roomIndex === currentRoomIndex}
-              onClick={() =>
-                handleClickEnterRoom({
-                  previousRoomIndex: currentRoomIndex,
-                  newRoomIndex: roomIndex,
-                })
-              }
-            >              
-              {getRoomName(roomIndex)} 채팅방
-            </button>
-          </li>
-        ))}
-      </ul>
-      <button
-        type="button"
-        disabled={!connected}
-        onClick={() => handleClickQuitRoom()}
-      >
-        연결 종료
-      </button>
-      <UserList roomId={roomId} />
-    </div>
+      <div className="room-list-container">
+        <ul className="room-list">
+          {roomIndices.map((roomIndex) => (
+            <li key={roomIndex} className="room-list-item">
+              <button
+                type="button"
+                disabled={roomIndex === currentRoomIndex}
+                onClick={() =>
+                  handleClickEnterRoom({
+                    previousRoomIndex: currentRoomIndex,
+                    newRoomIndex: roomIndex,
+                  })
+                }
+              >
+                {getRoomName(roomIndex)} 채팅방
+              </button>
+            </li>
+          ))}
+        </ul>
+        <button
+          type="button"
+          disabled={!connected}
+          onClick={() => handleClickQuitRoom()}
+        >
+          연결 종료
+        </button>
+        <UserList roomId={roomId} />
+      </div>
     </div>
   );
 }
