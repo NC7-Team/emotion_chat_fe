@@ -23,6 +23,13 @@ export default class PersonalMessageStore {
     this.userList = [];
   }
 
+  createRoom() {
+    const newRoomIndex = this.roomIndices.length + 1; // 새로운방
+    this.roomIndices.push(newRoomIndex);
+    this.publish();
+    return newRoomIndex;
+  }
+
   getCurrentRoomId() {
     return this.currentRoomIndex;
   }

@@ -5,7 +5,7 @@ import styles from "./ReactCalendar.module.css";
 import "./custom-calendar-style.css";
 import moment from "moment";
 
-// Moment.js를 영어로 설정
+
 moment.locale("en");
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/chatlogs/emotions/1")
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/api/chatlogs/emotions/1`)
       .then((response) => {
         setEmotions(response.data);
       })
@@ -26,6 +26,7 @@ function App() {
         console.error("Error fetching emotions:", error);
       });
   }, []);
+
 
   const formatDateToLocalDateString = (date) => {
     const year = date.getFullYear();

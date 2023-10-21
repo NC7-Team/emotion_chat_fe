@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import usePerMessageStore from "../../hooks/usePerMessageStore";
 import './chat.css';
-import UserList from "./UserList";
+import UserList from "./userList";
 
 
 const PerRoom = () => {
@@ -23,7 +23,7 @@ const PerRoom = () => {
       setShowEnterMessage(false);
     }, 3000);
 
-    return () => clearTimeout(timeout); 
+    return () => clearTimeout(timeout);
   }, []);
 
   const beforeUnloadListener = (() => {
@@ -45,7 +45,7 @@ const PerRoom = () => {
     permessageStore.changeInput(value);
   };
 
-  
+
 
   if (!connected) {
     return null;
@@ -68,10 +68,10 @@ const PerRoom = () => {
         </div>
       )}
 
-<UserList roomId={roomId} /> 
+      <UserList roomId={roomId} />
 
 
-<div className="user-list-container">
+      <div className="user-list-container">
       </div>
       <div className="chat-container">
         <ul className="message-list">
@@ -95,11 +95,10 @@ const PerRoom = () => {
         </form>
       </div>
       <div style={{ position: "relative", height: "500px" }}>
-</div>
+      </div>
     </div>
   );
-  
+
 }
 
 export default PerRoom;
-

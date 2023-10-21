@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -12,6 +12,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./MainPage.css";
 import PhotoPage from "./PhotoPage";
 import Footer from "../components/common/footer/footer.js";
+
+import "./MoodCanvas.scss";
+import "./EmotionChat.scss";
+
 
 const cards = [
   {
@@ -29,9 +33,7 @@ const cards = [
   {
     id: 2,
     title: (
-      <Link to="/perchat">
         <Typography variant="body2">Emotion Sparring Room</Typography>
-      </Link>
     ),
     description: (
       <Typography variant="caption">감정 스파링</Typography>
@@ -40,15 +42,17 @@ const cards = [
   },
 ];
 
+
+
 const defaultTheme = createTheme();
 
 export default function Album() {
-  const [text, setText] = useState("");
-  const [subText, setSubText] = useState("");
   const [hoveredCard, setHoveredCard] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const mainRef = useRef(null);
-  const typingSpeed = 50;
+  const navigate = useNavigate();
+
+  const smokyTextsRef = useRef([]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -59,52 +63,58 @@ export default function Album() {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
-    const moodCanvasText = "Mood Canvas";
-    const moodCanvasSubText = "당신의 감정을 얼굴로 표현해보세요 !";
-    let currentText = "";
-    let currentSubText = "";
-    let textIndex = 0;
-    let subTextIndex = 0;
-
-    const typeText = () => {
-      if (textIndex < moodCanvasText.length) {
-        currentText += moodCanvasText[textIndex];
-        setText(currentText);
-        textIndex++;
-        setTimeout(typeText, typingSpeed);
-      } else {
-        typeSubText();
-      }
-    };
-
-    const typeSubText = () => {
-      if (subTextIndex < moodCanvasSubText.length) {
-        currentSubText += moodCanvasSubText[subTextIndex];
-        setSubText(currentSubText);
-        subTextIndex++;
-        setTimeout(typeSubText, typingSpeed);
-      }
-    };
-    typeText();
-  }, []);
-
   const handleCardClick = (card) => {
     if (card.id === 1) {
       openModal();
+    } else if (card.id === 2) {
+      navigate("/perchat");
     }
   };
 
+  // 애니메이션 트리거 함수
+  const handleReturnAnimation = () => {
+    smokyTextsRef.current.forEach((text, index) => {
+      text.classList.add("return");
+    });
+  };
+
+  useEffect(() => {
+    smokyTextsRef.current = document.querySelectorAll(".smoky-animation");
+    const lastText = smokyTextsRef.current[smokyTextsRef.current.length - 1];
+
+    // 애니메이션이 끝나면 원래 위치로 돌아가도록 트리거
+    const animationEndHandler = () => {
+      handleReturnAnimation();
+    };
+
+    lastText.addEventListener("animationend", animationEndHandler);
+
+    return () => {
+      lastText.removeEventListener("animationend", animationEndHandler);
+    };
+  }, []);
+
   return (
     <ThemeProvider theme={defaultTheme}>
-      <main ref={mainRef}>
+      <main>
+        <Container sx={{ py: 7 }} maxWidth="md">
+          <span className="smoky-animation">M</span>
+          <span className="smoky-animation">O</span>
+          <span className="smoky-animation">O</span>
+          <span className="smoky-animation">D</span>
+          <span className="smoky-animation">C</span>
+          <span className="smoky-animation">A</span>
+          <span className="smoky-animation">N</span>
+          <span className="smoky-animation">V</span>
+          <span className="smoky-animation">A</span>
+          <span className="smoky-animation">S</span>
+        </Container>
         <Box
           sx={{
             bgcolor: "background.paper",
-            pt: 8,
-            pb: 6,
           }}
         >
+
           <Container maxWidth="sm">
             <Typography
               component="h1"
@@ -113,7 +123,7 @@ export default function Album() {
               color="text.primary"
               gutterBottom
             >
-              {text}
+              {/* {text} */}
             </Typography>
             <Typography
               variant="h7"
@@ -122,7 +132,7 @@ export default function Album() {
               paragraph
               sx={{ mt: 8 }}
             >
-              {subText}
+              {/* {subText} */}
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -132,19 +142,22 @@ export default function Album() {
             ></Stack>
           </Container>
         </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
+        <Container sx={{ py: 3 }} maxWidth="md">
           <Grid container spacing={4} justifyContent="center">
             {cards.map((card) => (
               <Grid item key={card.id} xs={12} sm={6} md={4}>
                 <div onClick={() => handleCardClick(card)}>
                   <Card
                     sx={{
+                      width: "100%",
                       height: "100%",
                       display: "flex",
                       flexDirection: "column",
                       transition: "transform 0.3s",
                       transform:
                         hoveredCard === card.id ? "scale(1.2)" : "scale(1)",
+                      marginBottom: "50px",
+                      zIndex: card.id,
                     }}
                     onMouseEnter={() => setHoveredCard(card.id)}
                     onMouseLeave={() => setHoveredCard(null)}

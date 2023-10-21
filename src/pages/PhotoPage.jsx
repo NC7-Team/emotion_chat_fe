@@ -79,7 +79,7 @@ class PhotoPage extends Component {
         <br />
         <br />
         <button type="button" id="sendBtn" onClick={this.posting}>
-          감정 전송
+          send
         </button>
         <br />
       </div>
