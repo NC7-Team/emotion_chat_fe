@@ -1,5 +1,3 @@
-
-
 .modal {
   display: flex;
   align-items: center;
@@ -32,22 +30,6 @@
 }
 
 
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
+.card-1 {
+  text-align: center;
 }
-
-@keyframes blink-caret {
-  from,
-  to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: #000;
-  }
-}
-

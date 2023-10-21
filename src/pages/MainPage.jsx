@@ -16,24 +16,33 @@ import Footer from "../components/common/footer/footer.js";
 import "./MoodCanvas.scss";
 import "./EmotionChat.scss";
 
+
 const cards = [
   {
     id: 1,
     title: (
-      <div className="card card-1">
-        <Typography variant="body2">Emotion Chat Room</Typography>
-      </div>
+      <Typography variant="body2">
+        Emotion Chat Room 감정 기반 채팅방
+      </Typography>
     ),
+    description: (
+      <Typography variant="caption">당신의 기분을 보여주세요!</Typography>
+    ),
+    imageUrl: "https://source.unsplash.com/random?wallpapers",
   },
   {
     id: 2,
     title: (
-      <div className="card card-2">
         <Typography variant="body2">Emotion Sparring Room</Typography>
-      </div>
     ),
+    description: (
+      <Typography variant="caption">감정 스파링</Typography>
+    ),
+    imageUrl: "https://source.unsplash.com/random?nature",
   },
 ];
+
+
 
 const defaultTheme = createTheme();
 
