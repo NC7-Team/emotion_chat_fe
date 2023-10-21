@@ -1,6 +1,9 @@
 export const ACCESS_TOKEN = 'accessToken';
-export const API_BASE_URL = 'http://www.moodcanvas.site:8080';
-export const OAUTH2_REDIRECT_URI = 'http://www.moodcanvas.site:8080/oauth2'
+// export const API_BASE_URL = 'http://www.moodcanvas.site:8080';
+export const API_BASE_URL = 'https://www.moodcanvas.site';
+
+export const OAUTH2_REDIRECT_URI = 'http://www.moodcanvas.site/oauth2'
+// export const OAUTH2_REDIRECT_URI = 'http://www.moodcanvas.site:8080/oauth2'
 
 
 export const GOOGLE_AUTH_URL = API_BASE_URL + '/oauth2/authorize/google?redirect_uri=' + OAUTH2_REDIRECT_URI;
