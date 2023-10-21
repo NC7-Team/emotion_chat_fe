@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import "./diary.css";
 import Button from "./Button";
 import DiaryList from "./DiaryList";
 
-const Diary = ({ selectedDate, diaryEntries, setDiaryEntries }) => {
+const Diary = ({ selectedDate }) => {
   const [state, setState] = useState({ content: "" });
   const [entries, setEntries] = useState([]);
-  const [todayEmotion, setTodayEmotion] = useState(null);
+  const [todayEmotion] = useState(null);
 
   const handleChangeContent = (e) => {
     setState({ ...state, content: e.target.value });
-  };
-
-  const handleOnGoBack = () => {
-    // handleOnGoBack 함수 정의
   };
 
   const handleSubmit = () => {
@@ -22,50 +17,9 @@ const Diary = ({ selectedDate, diaryEntries, setDiaryEntries }) => {
 
     setEntries((prevEntries) => [...prevEntries, newEntry]);
     setState({ content: "" });
-
-    axios
-      .post(`${process.env.REACT_APP_API_ENDPOINT}/api/Diary`, {
-        date: selectedDate,
-        entry: newEntry,
-      })
-      .then(() => {
-        // 저장 성공 시 추가 작업 (예: 알림)
-      })
-      .catch((error) => {
-        console.error("Error saving diary entry:", error);
-      });
   };
 
 
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_ENDPOINT}/api/chatlogs/emotions/1`)
-      .then((response) => {
-        const formattedDate = selectedDate; // 선택된 날짜로 변경
-        const todayEmotionData = response.data[formattedDate];
-
-        if (todayEmotionData) {
-          setTodayEmotion(todayEmotionData);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching emotions:", error);
-      });
-
-    // 선택된 날짜에 해당하는 일기를 불러옵니다.
-    if (selectedDate) {
-      axios
-        .get(`${process.env.REACT_APP_API_ENDPOINT}/api/diary/${selectedDate}`)
-        .then((response) => {
-          if (response.data && Array.isArray(response.data.entries)) {
-            setEntries(response.data.entries);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching diary entries:", error);
-        });
-    }
-  }, [selectedDate]);
 
   const emotionIcons = {
     HAPPY: "😀",
