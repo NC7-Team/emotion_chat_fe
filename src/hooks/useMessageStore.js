@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import useForceUpdate from './useForceUpdate';
+import useForceUpdate from "./useForceUpdate";
 
-import { messageStore } from '../stores/MessageStore';
+import { messageStore } from "../stores/MessageStore";
 
 export default function useMessageStore() {
   const forceUpdate = useForceUpdate();
