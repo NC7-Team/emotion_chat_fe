@@ -21,7 +21,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/chatlogs/emotions/1")
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/api/chatlogs/emotions/1`)
       .then((response) => {
         setEmotions(response.data);
       })
@@ -30,7 +30,7 @@ function App() {
       });
 
     axios
-      .get("http://localhost:8080/api/Diary")
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/api/Diary`)
       .then((response) => {
         setDiaryEntries(response.data);
       })
@@ -70,7 +70,7 @@ function App() {
 
     // 선택한 날짜의 일기 항목 가져오기
     axios
-      .get(`http://localhost:8080/api/Diary/${formattedDate}`)
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/api/Diary/${formattedDate}`)
       .then((response) => {
         if (response.data && response.data.entries) {
           setDiaryEntries({
