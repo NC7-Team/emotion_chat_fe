@@ -1,9 +1,5 @@
-.typing-animation {
-  overflow: hidden;
-  white-space: nowrap;
-  display: inline-block;
-  animation: typing 3s steps(30, end), blink-caret 0.5s step-end infinite;
-}
+
+
 .modal {
   display: flex;
   align-items: center;

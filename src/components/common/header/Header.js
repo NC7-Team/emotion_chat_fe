@@ -45,16 +45,13 @@ const AppHeader = ({ authenticated, onLogin, onLogout }) => {
                   <NavLink to="/myPage">Record</NavLink>
                 </li>
                 <li>
-                  <a onClick={handleLogout}>Logout</a>
+                  <a onClick={handleLogout}>LogOut</a>
                 </li>
               </ul>
             ) : (
               <ul>
                 <li>
-                  <NavLink to="/login">login</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/quill">Quill</NavLink>
+                  <NavLink to="/login">SignIn</NavLink>
                 </li>
                 <li></li>
               </ul>

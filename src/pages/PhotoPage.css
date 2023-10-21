@@ -1,6 +1,8 @@
 button#sendBtn {
-  border: 2px solid #CEECF5;
-  background-color: #CEECF5;
+  border: 2px solid #c6eaf5;
+  background-color: #c6eaf5;
   border-radius: 20px; 
   padding: 8px; 
+  color: white;
 }
+
