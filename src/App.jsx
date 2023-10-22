@@ -39,18 +39,18 @@ class App extends Component {
 
   loadCurrentlyLoggedInUser() {
     getCurrentUser()
-        .then((response) => {
-          this.setState({
-            currentUser: response,
-            authenticated: true,
-            loading: false,
-          });
-        })
-        .catch((error) => {
-          this.setState({
-            loading: false,
-          });
+      .then((response) => {
+        this.setState({
+          currentUser: response,
+          authenticated: true,
+          loading: false,
         });
+      })
+      .catch((error) => {
+        this.setState({
+          loading: false,
+        });
+      });
   }
 
   handleLogout() {
@@ -72,40 +72,39 @@ class App extends Component {
     }
 
     return (
-        <div className="app">
-          <div className="app-top-box">
-            <Header
-                authenticated={this.state.authenticated}
-                onLogout={this.handleLogout}
-            />
-          </div>
-          <div className="app-body">
-            <Routes>
-              {/*기본로직*/}
-              <Route path="/quill" element={<QuillPage />} />
-              {/*로그인이 필요한 로직*/}
-              <Route path="/logincheck" element={<LoginCheck />} />
-              <Route path="/login" element={this.state.authenticated ? <MyPage /> : <Login />} />
-              <Route path="/photo" element={this.state.authenticated ? <PhotoPage /> : <Login />} />
-              <Route path="/mypage" element={this.state.authenticated ? <MyPage /> : <Login />} />
-              <Route path="/perchat" element={this.state.authenticated ? <PerChattingPage /> : <Login />} />
-              <Route path="/chat" element={this.state.authenticated ? <ChattingPage /> : <Login />} />
-              <Route path="/oauth2" element={<OAuth2RedirectHandler />}/>
-              {/*오류처리페이지*/}
-              {/*<Route path="*" element={<NotFound />} />*/}
-            </Routes>
-          </div>
-          <Alert
-              stack={{ limit: 3 }}
-              timeout={3000}
-              position="top-right"
-              effect="slide"
-              offset={65}
+      <div className="app">
+        <div className="app-top-box">
+          <Header
+            authenticated={this.state.authenticated}
+            onLogout={this.handleLogout}
           />
         </div>
+        <div className="app-body">
+          <Routes>
+            {/*기본로직*/}
+            <Route path="/quill" element={<QuillPage />} />
+            {/*로그인이 필요한 로직*/}
+            <Route path="/logincheck" element={<LoginCheck />} />
+            <Route path="/login" element={this.state.authenticated ? <MyPage /> : <Login />} />
+            <Route path="/photo" element={this.state.authenticated ? <PhotoPage /> : <Login />} />
+            <Route path="/mypage" element={this.state.authenticated ? <MyPage /> : <Login />} />
+            <Route path="/perchat" element={this.state.authenticated ? <PerChattingPage /> : <Login />} />
+            <Route path="/chat" element={this.state.authenticated ? <ChattingPage /> : <Login />} />
+            <Route path="/oauth2" element={<OAuth2RedirectHandler />}/>
+            {/*오류처리페이지*/}
+            {/*<Route path="*" element={<NotFound />} />*/}
+          </Routes>
+        </div>
+        <Alert
+          stack={{ limit: 3 }}
+          timeout={3000}
+          position="top-right"
+          effect="slide"
+          offset={65}
+        />
+      </div>
     );
   }
 }
 
 export default App;
-
