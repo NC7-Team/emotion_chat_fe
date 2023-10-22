@@ -81,31 +81,19 @@ class App extends Component {
         </div>
         <div className="app-body">
           <Routes>
+            {/*기본로직*/}
             <Route path="/" element={<MainPage />} />
-            <Route
-              path="/login"
-              element={
-                this.state.authenticated ? (
-                  <Navigate to="/mypage" replace />
-                ) : (
-                  <Login
-                    authenticated={this.state.authenticated}
-                    reloadPage={true}
-                  />
-                )
-              }
-            />
-            <Route path="/chat" element={<ChattingPage />} />
-            <Route path="/perchat" element={<PerChattingPage />} />
-            <Route path="/myPage" element={<MyPage />} />
-            <Route path="/logincheck" element={<LoginCheck />} />
             <Route path="/quill" element={<QuillPage />} />
-            <Route path="/photo" element={<PhotoPage />} />
-            <Route
-              path="/oauth2"
-              element={<OAuth2RedirectHandler />}
-            />
-            <Route path="*" element={<NotFound />} />
+            {/*로그인이 필요한 로직*/}
+            <Route path="/logincheck" element={<LoginCheck />} />
+            <Route path="/login" element={this.state.authenticated ? <MyPage /> : <Login />} />
+            <Route path="/photo" element={this.state.authenticated ? <PhotoPage /> : <Login />} />
+            <Route path="/mypage" element={this.state.authenticated ? <MyPage /> : <Login />} />
+            <Route path="/perchat" element={this.state.authenticated ? <PerChattingPage /> : <Login />} />
+            <Route path="/chat" element={this.state.authenticated ? <ChattingPage /> : <Login />} />
+            <Route path="/oauth2" element={<OAuth2RedirectHandler />}/>
+            {/*오류처리페이지*/}
+            {/*<Route path="*" element={<NotFound />} />*/}
           </Routes>
         </div>
         <Alert
