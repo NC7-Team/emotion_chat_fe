@@ -15,7 +15,7 @@ export default function MyPage(props) {
             <div className="recommend-area">
                 <Recommend />
             </div>
-            <div>
+            <div className="user-name">
                 <span>{props.currentUser.name && props.currentUser.name[0]}</span>
             </div>
         </div>
