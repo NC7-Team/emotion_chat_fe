@@ -22,7 +22,7 @@ function OAuth2RedirectHandler() {
     return (
       <Navigate
         to={{
-          pathname: "/loginCheck",
+          pathname: "/login",
           state: { from: location },
         }}
       />
