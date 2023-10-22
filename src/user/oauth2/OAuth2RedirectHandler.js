@@ -22,7 +22,7 @@ function OAuth2RedirectHandler() {
     return (
       <Navigate
         to={{
-          pathname: "/login",
+          pathname: window.location.href = "/login",
           state: { from: location },
         }}
       />
