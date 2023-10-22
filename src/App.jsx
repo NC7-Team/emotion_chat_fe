@@ -92,7 +92,7 @@ class App extends Component {
             <Route path="/login" element={this.state.authenticated ? <MyPage /> : <Login />} />
             <Route path="/mypage" element={this.state.authenticated ? <MyPage /> : <Login />} />
             <Route path="/profile" element={this.state.authenticated ? <Profile /> : <Login />} />
-            <Route path="/profile" element={this.state.authenticated ? <Profile currentUser={this.state.currentUser} /> : <Login />} />
+            <Route path="/profile" element={this.state.authenticated ? <Profile currentUser={this.state.currentUser} /> : <Navigate to="/login" />} />
             <Route path="/photo" element={this.state.authenticated ? <PhotoPage /> : <Login />} />
             <Route path="/chat" element={this.state.authenticated ? <ChattingPage /> : <Login />} />
             {/*오류처리페이지*/}
