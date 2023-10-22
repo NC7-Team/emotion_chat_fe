@@ -22,7 +22,6 @@ import OAuth2RedirectHandler from "./user/oauth2/OAuth2RedirectHandler";
 import Alert from "react-s-alert";
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
-import Profile from "./user/profile/Profile";
 
 class App extends Component {
   constructor(props) {
