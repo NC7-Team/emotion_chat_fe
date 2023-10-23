@@ -13,7 +13,7 @@ export default function MyPage(props) {
         <ReactCalendar currentUser={props.currentUser} />
       </div>
       <div className="recommend-area">
-        <Recommend />
+        <Recommend currentUser={props.currentUser} />
       </div>
       <div className="user-name">
         <span>{props.currentUser.name}</span>
