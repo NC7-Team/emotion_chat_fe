@@ -55,7 +55,7 @@ class PhotoPage extends Component {
 
     axios.post("/face", formData).then(response => {
       if (response.data === "no_person") {
-        alert("사진에 사람이 없습니다")
+        alert("화면에 사람이 없습니다!")
         return
       } else if (response.data === "ANGRY") {
         emotion = 1;

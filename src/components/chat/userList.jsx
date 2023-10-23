@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './list.css';
+import './chat.css';
 
 const UserList = ({ roomId }) => {
   const [userList, setUserList] = useState([]);
@@ -41,10 +42,10 @@ const UserList = ({ roomId }) => {
         <div>로딩 중...</div>
       ) : (
         <div>
-          <h3>유저 목록:</h3>
-          <ul>
+          <h2>Participants</h2>
+          <ul style={{ listStyle: "none" }}>
             {userList.map((roomId) => (
-              <li key={roomId}>유저 {roomId}</li>
+              <li key={roomId} >user  {roomId}</li>
             ))}
           </ul>
         </div>

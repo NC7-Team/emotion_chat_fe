@@ -11,7 +11,6 @@ import LoadingIndicator from "./common/LoadingIndicator";
 import MainPage from "./pages/MainPage";
 import MyPage from "./pages/MyPage";
 import PhotoPage from "./pages/PhotoPage";
-import QuillPage from "./pages/QuillPage";
 import LoginCheck from "./pages/LoginCheck";
 import ChattingPage from "./pages/ChattingPage";
 import PerChattingPage from "./pages/PerChattingPage";
@@ -99,7 +98,6 @@ class App extends Component {
             <Route path="/perchat" element={<PerChattingPage />} />
             <Route path="/myPage" element={<MyPage />} />
             <Route path="/logincheck" element={<LoginCheck />} />
-            <Route path="/quill" element={<QuillPage />} />
             <Route path="/photo" element={<PhotoPage />} />
             <Route
               path="/oauth2"
