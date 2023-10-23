@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./recommend.css";
 
-const Recommend = () => {
+const Recommend = (props) => {
   const [recommendations, setRecommendations] = useState({
     movies: "",
     music: "",
@@ -15,7 +15,7 @@ const Recommend = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_ENDPOINT}/api/adrecommendations/recommend/1`)
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/api/adrecommendations/recommend/${props.currentUser.id}`)
       .then((response) => {
         const data = response.data;
 
