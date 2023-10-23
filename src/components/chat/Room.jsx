@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import useMessageStore from '../../hooks/useMessageStore';
 import './chat.css';
 
@@ -11,15 +11,6 @@ const Room = () => {
     messageLogs,
   } = messageStore;
 
-
-
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     setShowEnterMessage(false);
-  //   }, 3000);
-
-  //   return () => clearTimeout(timeout); 
-  // }, []);
 
   const beforeUnloadListener = (() => {
     if (connected) {
@@ -43,17 +34,7 @@ const Room = () => {
     return null;
   }
 
-  // 채팅방의 이름을 표시하는 변수
   let roomName = "";
-
-  // 채팅방의 이름을 설정
-  // if (window.location.pathname.includes("happiness")) {
-  // roomName = "기쁨";
-  // } else if (window.location.pathname.includes("sadness")) {
-  // roomName = "슬픔";
-  // } else if (window.location.pathname.includes("anger")) {
-  //  roomName = "화남";
-  // }
 
   return (
     <div className="chat-wrapper" style={{ position: 'absolute', right: '200px' }}>

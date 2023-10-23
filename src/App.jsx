@@ -58,7 +58,12 @@ class App extends Component {
       authenticated: false,
       currentUser: null,
     });
-    Alert.success("You're safely logged out!");
+
+    const customAlertStyle = {
+      backgroundColor: '#0f96f6',
+    };
+
+    Alert.success("You're safely logged out!", { variant: 'success', style: customAlertStyle });
   }
 
   componentDidMount() {

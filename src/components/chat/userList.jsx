@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './list.css';
-import './chat.css';
 
 const UserList = ({ roomId }) => {
   const [userList, setUserList] = useState([]);
@@ -25,13 +24,12 @@ const UserList = ({ roomId }) => {
   };
 
   useEffect(() => {
-    fetchUserList(); // Fetch user list when component mounts
+    fetchUserList();
 
     const intervalId = setInterval(() => {
-      fetchUserList(); // Fetch user list at regular intervals (e.g., every 5 seconds)
-    }, 1000); // Adjust the interval time (in milliseconds) as needed
+      fetchUserList(); 
+    }, 1000); 
 
-    // Clear the interval when the component is unmounted
     return () => clearInterval(intervalId);
   }, [roomId]);
 
@@ -42,10 +40,10 @@ const UserList = ({ roomId }) => {
         <div>로딩 중...</div>
       ) : (
         <div>
-          <h2>Participants</h2>
-          <ul style={{ listStyle: "none" }}>
+          <h3>유저 목록:</h3>
+          <ul>
             {userList.map((roomId) => (
-              <li key={roomId} >user  {roomId}</li>
+              <li key={roomId}>유저 {roomId}</li>
             ))}
           </ul>
         </div>

@@ -9,17 +9,35 @@ class PhotoPage extends Component {
     this.videoRef = React.createRef();
     this.canvasRef = React.createRef();
     this.posting = this.posting.bind(this);
+    console.log(props);
   }
 
   componentDidMount() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
         const video = this.videoRef.current;
+
         video.style.cssText =
           "-moz-transform: scale(-1, 1); -webkit-transform: scale(-1, 1); -o-transform: scale(-1, 1); transform: scale(-1, 1); filter: FlipH;";
         video.srcObject = stream;
         video.play();
       });
+    }
+  }
+
+  componentWillUnmount() {
+    const video = this.videoRef.current;
+    if (video && video.srcObject) {
+      const stream = video.srcObject;
+      if (stream.getTracks) {
+        stream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      } else {
+        stream.getVideoTracks().forEach((track) => {
+          track.stop();
+        });
+      }
     }
   }
 
@@ -52,10 +70,11 @@ class PhotoPage extends Component {
     fileName = "canvas_img_" + new Date().getMilliseconds() + ".jpg";
     let formData = new FormData();
     formData.append("uploadFile", file, fileName);
+    //formData.append("id", this.props.currentUser.id)
 
     axios.post("/face", formData).then(response => {
       if (response.data === "no_person") {
-        alert("화면에 사람이 없습니다!")
+        alert("화면에 사람이 없습니다 !")
         return
       } else if (response.data === "ANGRY") {
         emotion = 1;
@@ -66,6 +85,7 @@ class PhotoPage extends Component {
       } else if (response.data === "NEUTRAL") {
         emotion = 3;
       }
+      this.videoRef.current.src = "";
       this.props.navigate('/chat', { state: { id: emotion } })
     })
   };
