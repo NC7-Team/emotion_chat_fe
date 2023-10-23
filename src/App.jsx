@@ -11,7 +11,7 @@ import LoadingIndicator from "./common/LoadingIndicator";
 import MainPage from "./pages/MainPage";
 import MyPage from "./pages/MyPage";
 import PhotoPage from "./pages/PhotoPage";
-import QuillPage from "./pages/QuillPage";
+import LoginCheck from "./pages/LoginCheck";
 import ChattingPage from "./pages/ChattingPage";
 import PerChattingPage from "./pages/PerChattingPage";
 
@@ -82,7 +82,6 @@ class App extends Component {
           <Routes>
             {/*기본로직*/}
             <Route path="/" element={<MainPage />} />
-            <Route path="/quill" element={<QuillPage />} />
             <Route path="/oauth2" element={<OAuth2RedirectHandler />}/>
             {/*로그인이 필요한 로직*/}
             <Route path="/perchat" element={this.state.authenticated ? <PerChattingPage /> : <Login />} />
@@ -90,8 +89,6 @@ class App extends Component {
             <Route path="/mypage" element={this.state.authenticated ? <MyPage currentUser={this.state.currentUser} /> : <Login />} />
             <Route path="/photo" element={this.state.authenticated ? <PhotoPage /> : <Login />} />
             <Route path="/chat" element={this.state.authenticated ? <ChattingPage /> : <Login />} />
-            {/*오류처리페이지*/}
-            {/*<Route path="*" element={<NotFound />} />*/}
           </Routes>
         </div>
         <Alert

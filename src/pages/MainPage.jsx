@@ -22,11 +22,11 @@ const cards = [
     id: 1,
     title: (
       <Typography variant="body2">
-        Emotion Chat Room 감정 기반 채팅방
+        Emotion Chat Room
       </Typography>
     ),
     description: (
-      <Typography variant="caption">당신의 기분을 보여주세요!</Typography>
+      <Typography variant="caption">감정 기반 채팅방</Typography>
     ),
     imageUrl: "https://source.unsplash.com/random?wallpapers",
   },
