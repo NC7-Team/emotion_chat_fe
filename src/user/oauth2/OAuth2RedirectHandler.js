@@ -6,7 +6,7 @@ function OAuth2RedirectHandler() {
   const location = useLocation();
 
   function getUrlParameter(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    name = name.replace(/\[/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
     var results = regex.exec(location.search);
     return results === null
@@ -22,7 +22,7 @@ function OAuth2RedirectHandler() {
     return (
       <Navigate
         to={{
-          pathname: "/loginCheck",
+          pathname: window.location.href = "/login",
           state: { from: location },
         }}
       />

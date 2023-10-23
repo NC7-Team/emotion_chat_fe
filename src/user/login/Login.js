@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import "./Login.css";
 import {
-  GOOGLE_AUTH_URL,
-  FACEBOOK_AUTH_URL,
-  GITHUB_AUTH_URL,
-  ACCESS_TOKEN,
+    GOOGLE_AUTH_URL,
+    FACEBOOK_AUTH_URL,
+    KAKAO_AUTH_URL, NAVER_AUTH_URL,
 } from "../../constants";
-import { Link } from "react-router-dom";
 import fbLogo from "../../img/fb-logo.png";
 import googleLogo from "../../img/google-logo.png";
 import kakaoLogo from "../../img/kakao-logo.png";
@@ -57,18 +55,16 @@ class SocialLogin extends Component {
             <img src={googleLogo} alt="Google" /> Log in with Google
           </a>
 
-          <a className="btn btn-block social-btn github" href={GOOGLE_AUTH_URL}>
+          <a className="btn btn-block social-btn github" href={KAKAO_AUTH_URL}>
             <img src={kakaoLogo} alt="Kakao" /> Log in with Kakao
           </a>
 
-          <a className="btn btn-block social-btn github" href={GOOGLE_AUTH_URL}>
+          <a className="btn btn-block social-btn github" href={NAVER_AUTH_URL}>
             <img src={naveLogo} alt="Kakao" /> Log in with Naver
           </a>
 
           <a
-              className="btn btn-block social-btn facebook"
-              href={FACEBOOK_AUTH_URL}
-          >
+              className="btn btn-block social-btn facebook" href={FACEBOOK_AUTH_URL}>
             <img src={fbLogo} alt="Facebook" /> Log in with Facebook
           </a>
 

@@ -14,6 +14,7 @@ function App() {
   const emotionIcons = {
     HAPPY: "😀",
     SAD: "😢",
+    ANGRY: "😠"
   };
 
   useEffect(() => {
@@ -43,8 +44,21 @@ function App() {
     const formattedDate = formatDateToLocalDateString(date);
     const emotion = emotions[formattedDate];
 
+    let customClassName = "";
     if (view === "month" && emotion) {
-      const customClassName = emotion === "HAPPY" ? styles.happy : styles.sad;
+      switch (emotion) {
+        case "HAPPY":
+          customClassName = styles.happy;
+          break;
+        case "SAD":
+          customClassName = styles.sad;
+          break;
+        case "ANGRY":
+          customClassName = styles.angry;
+          break;
+        default:
+          break;
+      }
       return <div className={customClassName}>{emotionIcons[emotion]}</div>;
     }
   };
