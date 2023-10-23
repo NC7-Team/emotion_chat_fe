@@ -6,6 +6,8 @@ const Recommend = () => {
   const [recommendations, setRecommendations] = useState({
     movies: "",
     music: "",
+    movieImage: "",
+    musicImage: "",
   });
 
   const [movieLink, setMovieLink] = useState("");
@@ -20,19 +22,19 @@ const Recommend = () => {
         // 첫 번째 항목의 linkURI 값을 가져와 상태에 저장
         if (data.length > 0) {
           setMovieLink(data[0].linkURI);
-          setRecommendations(prevState => ({
+          setRecommendations((prevState) => ({
             ...prevState,
             movies: data[0].content,
-            movieImage: data[0].imageURI
+            movieImage: data[0].imageURI, // 이미지 링크 추가
           }));
         }
 
         if (data.length > 1) {
           setMusicLink(data[1].linkURI);
-          setRecommendations(prevState => ({
+          setRecommendations((prevState) => ({
             ...prevState,
             music: data[1].content,
-            musicImage: data[1].imageURI
+            musicImage: data[1].imageURI, // 이미지 링크 추가
           }));
         }
       })
@@ -59,23 +61,22 @@ const Recommend = () => {
     <div className="recommend-container">
       <div className="recommend-box" onClick={handleMovieClick}>
         <div className="recommend-content">
-          <img src={movieImage} alt="Travel" />
+          <img src={recommendations.movieImage} alt="Travel" /> {/* 이미지 링크 사용 */}
           <div>
-            <h2>{movieContent}</h2>
+            <h2>{recommendations.movies}</h2>
           </div>
         </div>
         <p>{recommendations.movies}</p>
       </div>
       <div className="recommend-box" onClick={handleMusicClick}>
         <div className="recommend-content">
-          <img src={musicImage} alt="Music" />
+          <img src={recommendations.musicImage} alt="Music" /> {/* 이미지 링크 사용 */}
           <div>
-            <h2>{musicContent}</h2>
+            <h2>{recommendations.music}</h2>
           </div>
         </div>
         <p>{recommendations.music}</p>
       </div>
-
     </div>
   );
 };
