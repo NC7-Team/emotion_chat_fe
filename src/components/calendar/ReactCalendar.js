@@ -8,7 +8,7 @@ import moment from "moment";
 
 moment.locale("en");
 
-function App() {
+function App(props) {
   const [emotions, setEmotions] = useState({});
 
   const emotionIcons = {
@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_ENDPOINT}/api/chatlogs/emotions/1`)
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/api/chatlogs/emotions/${props.currentUser.id}`)
       .then((response) => {
         setEmotions(response.data);
       })
