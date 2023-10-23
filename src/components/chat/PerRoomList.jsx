@@ -1,23 +1,32 @@
-import React, { useState, useEffect } from "react";
 import usePerMessageStore from "../../hooks/usePerMessageStore";
+import { useLocation } from "react-router-dom";
 import './list.css';
 import UserList from "./userList";
+import { useEffect } from "react";
 
 export default function PerRoomList() {
   const perMessageStore = usePerMessageStore();
+
+
+
+
+  // const getRoomName = (roomIndex) => {
+  //   switch (roomIndex) {
+  //     case 1:
+  //       return "화남";
+  //     case 2:
+  //       return "슬픔";
+  //     case 3:
+  //       return "기쁨";
+  //     default:
+  //       return "알 수 없음";
+  //   }
+  // };
+
   const { connected, currentRoomIndex, roomIndices } = perMessageStore;
+
   const roomId = perMessageStore.getCurrentRoomId();
-  const [roomTitle, setRoomTitle] = useState("");
-  const maxRoomSize = 2;
-  const maxRooms = 8;
 
-  useEffect(() => {
-    fetchRoomList();
-  }, [perMessageStore]);
-
-  const getRoomSize = (roomIndex) => {
-    return perMessageStore.getRoomMemberCount(roomIndex).length;
-  }
 
   const handleClickEnterRoom = ({ newRoomIndex }) => {
     if (connected) {
@@ -30,41 +39,6 @@ export default function PerRoomList() {
     perMessageStore.disconnect(currentRoomIndex);
   };
 
-  const fetchRoomList = () => {
-    fetch("http://localhost:8080/rooms/all")
-      .then((response) => response.json())
-      .then((data) => {
-        perMessageStore.roomIndices = data.map((room) => room.roomIndex);
-        perMessageStore.publish();
-      });
-  };
-
-  const createOrJoinRoom = (roomTitle) => {
-    fetch("http://localhost:8080/rooms/createOrJoin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ roomTitle }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data) {
-          if (connected) {
-            perMessageStore.disconnect(currentRoomIndex);
-          }
-          perMessageStore.connect(data.roomIndex);
-        } else {
-          console.log("최대 인원을 초과하여 방 생성 또는 입장 불가");
-        }
-        setRoomTitle("");
-      });
-  };
-
-  useEffect(() => {
-    fetchRoomList();
-  }, [perMessageStore]);
-
   return (
     <div className="list-wrapper" style={{ position: 'absolute', left: '200px' }}>
       <div className="room-list-container">
@@ -73,41 +47,21 @@ export default function PerRoomList() {
             <li key={roomIndex} className="room-list-item">
               <button
                 type="button"
-                disabled={roomIndex === currentRoomIndex || getRoomSize(roomIndex) >= maxRoomSize}
-                onClick={() => handleClickEnterRoom({ newRoomIndex: roomIndex })}
+                disabled={roomIndex === currentRoomIndex}
+                onClick={() =>
+                  handleClickEnterRoom({
+                    previousRoomIndex: currentRoomIndex,
+                    newRoomIndex: roomIndex,
+                  })
+                }
               >
-                {perMessageStore.getRoomTitle(roomIndex)} 채팅방 ({getRoomSize(roomIndex)}/{maxRoomSize})
+                 채팅방
               </button>
             </li>
           ))}
         </ul>
-        <div className="create-room">
-          <input
-            type="text"
-            placeholder="방 제목을 입력하세요"
-            value={roomTitle}
-            onChange={(e) => setRoomTitle(e.target.value)}
-          />
-          {roomIndices.length < maxRooms && (
-            <button
-              type="button"
-              onClick={() => createOrJoinRoom(roomTitle)}
-            >
-              방 생성 또는 입장
-            </button>
-          )}
-        </div>
-        <button
-          type="button"
-          disabled={!connected}
-          onClick={() => handleClickQuitRoom()}
-        >
-          연결 종료
-        </button>
         <UserList roomId={roomId} />
       </div>
     </div>
   );
 }
-
-
