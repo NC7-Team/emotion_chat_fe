@@ -5,13 +5,11 @@ import Header from "./components/common/header/Header";
 
 import Login from "./user/login/Login";
 
-import NotFound from "./common/NotFound";
 import LoadingIndicator from "./common/LoadingIndicator";
 
 import MainPage from "./pages/MainPage";
 import MyPage from "./pages/MyPage";
 import PhotoPage from "./pages/PhotoPage";
-import LoginCheck from "./pages/LoginCheck";
 import ChattingPage from "./pages/ChattingPage";
 import PerChattingPage from "./pages/PerChattingPage";
 
@@ -85,7 +83,7 @@ class App extends Component {
             <Route path="/oauth2" element={<OAuth2RedirectHandler />}/>
             {/*로그인이 필요한 로직*/}
             <Route path="/perchat" element={this.state.authenticated ? <PerChattingPage /> : <Login />} />
-            <Route path="/login" element={this.state.authenticated ? (<Navigate to="/MyPage" currentUser={this.state.currentUser} />) : (<Login />)} />
+            <Route path="/login" element={this.state.authenticated ? (<Navigate to="/mypage" currentUser={this.state.currentUser} />) : (<Login />)} />
             <Route path="/mypage" element={this.state.authenticated ? <MyPage currentUser={this.state.currentUser} /> : <Login />} />
             <Route path="/photo" element={this.state.authenticated ? <PhotoPage /> : <Login />} />
             <Route path="/chat" element={this.state.authenticated ? <ChattingPage /> : <Login />} />

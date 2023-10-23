@@ -49,7 +49,6 @@ const defaultTheme = createTheme();
 export default function Album() {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const mainRef = useRef(null);
   const navigate = useNavigate();
 
   const smokyTextsRef = useRef([]);
