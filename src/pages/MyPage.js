@@ -4,14 +4,13 @@ import Diary from "../components/diary/Diary";
 import Recommend from "../components/recommend/Recommend";
 
 export default function MyPage(props) {
-  console.log(props.currentUser);
   return (
     <div className="my-page">
       <div className="diary-area">
         <Diary />
       </div>
       <div>
-        <ReactCalendar />
+        <ReactCalendar currentUser={props.currentUser} />
       </div>
       <div className="recommend-area">
         <Recommend />

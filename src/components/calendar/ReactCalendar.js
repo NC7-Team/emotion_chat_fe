@@ -26,7 +26,7 @@ function App(props) {
       .catch((error) => {
         console.error("Error fetching emotions:", error);
       });
-  }, []);
+  }, [props.currentUser]);
 
 
   const formatDateToLocalDateString = (date) => {
