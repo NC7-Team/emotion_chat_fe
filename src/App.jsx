@@ -80,30 +80,15 @@ class App extends Component {
         </div>
         <div className="app-body">
           <Routes>
+            {/*기본로직*/}
             <Route path="/" element={<MainPage />} />
-            <Route
-              path="/login"
-              element={
-                this.state.authenticated ? (
-                  <Navigate to="/mypage" replace />
-                ) : (
-                  <Login
-                    authenticated={this.state.authenticated}
-                    reloadPage={true}
-                  />
-                )
-              }
-            />
-            <Route path="/chat" element={<ChattingPage />} />
-            <Route path="/perchat" element={<PerChattingPage />} />
-            <Route path="/myPage" element={<MyPage />} />
-            <Route path="/logincheck" element={<LoginCheck />} />
-            <Route path="/photo" element={<PhotoPage />} />
-            <Route
-              path="/oauth2"
-              element={<OAuth2RedirectHandler />}
-            />
-            <Route path="*" element={<NotFound />} />
+            <Route path="/oauth2" element={<OAuth2RedirectHandler />}/>
+            {/*로그인이 필요한 로직*/}
+            <Route path="/perchat" element={this.state.authenticated ? <PerChattingPage /> : <Login />} />
+            <Route path="/login" element={this.state.authenticated ? (<Navigate to="/MyPage" currentUser={this.state.currentUser} />) : (<Login />)} />
+            <Route path="/mypage" element={this.state.authenticated ? <MyPage currentUser={this.state.currentUser} /> : <Login />} />
+            <Route path="/photo" element={this.state.authenticated ? <PhotoPage /> : <Login />} />
+            <Route path="/chat" element={this.state.authenticated ? <ChattingPage /> : <Login />} />
           </Routes>
         </div>
         <Alert
