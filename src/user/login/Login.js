@@ -3,10 +3,8 @@ import "./Login.css";
 import {
     GOOGLE_AUTH_URL,
     FACEBOOK_AUTH_URL,
-    GITHUB_AUTH_URL,
-    ACCESS_TOKEN, KAKAO_AUTH_URL, NAVER_AUTH_URL,
+    KAKAO_AUTH_URL, NAVER_AUTH_URL,
 } from "../../constants";
-import { Link } from "react-router-dom";
 import fbLogo from "../../img/fb-logo.png";
 import googleLogo from "../../img/google-logo.png";
 import kakaoLogo from "../../img/kakao-logo.png";
