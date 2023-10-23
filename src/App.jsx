@@ -5,7 +5,6 @@ import Header from "./components/common/header/Header";
 
 import Login from "./user/login/Login";
 
-import NotFound from "./common/NotFound";
 import LoadingIndicator from "./common/LoadingIndicator";
 
 import MainPage from "./pages/MainPage";
