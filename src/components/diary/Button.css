@@ -1,36 +1,28 @@
 .Button {
-
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    padding-top: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 5px 20px; /* top, bottom 패딩 값을 줄이고 left, right 패딩 값은 그대로 유지 */
     font-size: 18px;
     white-space: nowrap;
-
+    text-align: center; /* 텍스트 가운데 정렬 */
+    line-height: 1.5; /* 라인 높이를 조절하여 텍스트 수직 중앙 정렬 */
 }
 
 /* 일반적인 기능 담당 버튼 CSS */
 .Button_default {
-
     background-color: #ececec;
     color: black;
-
 }
 
 /* 새로운 일기 작성, 일기 작성 완료, 수정 완료 기능 담당 버튼 CSS */
 .Button_positive {
-
     background-color: #c1d1e9;
     color: white;
-
 }
 
 /* 일기 삭제등 기능 담당 버튼 CSS */
 .Button_negative {
-
     background-color: #fd565f;
     color: white;
-
 }
