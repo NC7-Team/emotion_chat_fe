@@ -5,13 +5,11 @@ import Header from "./components/common/header/Header";
 
 import Login from "./user/login/Login";
 
-import NotFound from "./common/NotFound";
 import LoadingIndicator from "./common/LoadingIndicator";
 
 import MainPage from "./pages/MainPage";
 import MyPage from "./pages/MyPage";
 import PhotoPage from "./pages/PhotoPage";
-import LoginCheck from "./pages/LoginCheck";
 import ChattingPage from "./pages/ChattingPage";
 import PerChattingPage from "./pages/PerChattingPage";
 
