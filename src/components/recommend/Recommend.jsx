@@ -66,7 +66,6 @@ const Recommend = () => {
             <h2>{recommendations.movies}</h2>
           </div>
         </div>
-        <p>{recommendations.movies}</p>
       </div>
       <div className="recommend-box" onClick={handleMusicClick}>
         <div className="recommend-content">
@@ -75,7 +74,6 @@ const Recommend = () => {
             <h2>{recommendations.music}</h2>
           </div>
         </div>
-        <p>{recommendations.music}</p>
       </div>
     </div>
   );
