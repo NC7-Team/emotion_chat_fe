@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./PhotoPage.css";
 import { withRouter } from "./WithRouter";
+import { getCurrentUser } from "../util/APIUtils";
 
 class PhotoPage extends Component {
   constructor(props) {
@@ -52,6 +53,10 @@ class PhotoPage extends Component {
     let formData = new FormData();
     formData.append("uploadFile", file, fileName);
     formData.append("id", 1);
+
+    let ui = getCurrentUser();
+    console.log(ui.id);
+    console.log(ui.name);
 
     axios.post("/face", formData).then(response => {
       if (response.data === "no_person") {
