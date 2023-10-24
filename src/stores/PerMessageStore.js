@@ -4,11 +4,11 @@ import { messageService } from "../services/MessageService";
 
 const baseUrl = "http://localhost:8080";
 
-export default class PersonalMessageStore {
+export default class PerMessageStore {
   constructor() {
     this.listeners = new Set();
 
-    this.userId = Math.ceil(Math.random() * 100);
+    this.userId = Math.ceil(Math.random() * 1000);
 
     this.socket = null;
     this.client = null;
@@ -20,21 +20,13 @@ export default class PersonalMessageStore {
     this.messageEntered = "";
 
     this.messageLogs = [];
-    this.userList = [];
-  }
-
-  createRoom() {
-    const newRoomIndex = this.roomIndices.length + 1; // 새로운방
-    this.roomIndices.push(newRoomIndex);
-    this.publish();
-    return newRoomIndex;
   }
 
   getCurrentRoomId() {
     return this.currentRoomIndex;
   }
 
-  connect(roomIndex) {
+  connect(roomIndex, authToken) {
     this.socket = new SockJS(`${baseUrl}/chat`);
     this.client = Stomp.over(this.socket);
 
@@ -95,8 +87,7 @@ export default class PersonalMessageStore {
   receiveMessage(messageReceived) {
     const message = JSON.parse(messageReceived.body);
     const sentByUser =
-      message.type === "message" &&
-      message.value.includes(`사용자 ${this.userId}`);
+      message.type === "message" && message.value.includes(`${this.userId}`);
     this.messageLogs = [
       ...this.messageLogs,
       this.formatMessage(message, sentByUser),
@@ -130,14 +121,6 @@ export default class PersonalMessageStore {
   publish() {
     this.listeners.forEach((listener) => listener());
   }
-
-  // 개인톡방 생성 메서드
-  createPersonalRoom() {
-    // 랜덤한 roomId 생성 (예: 1부터 1000까지의 랜덤 정수)
-    const roomId = Math.ceil(Math.random() * 1000);
-    // 새로운 방에 접속
-    this.connect(roomId);
-  }
 }
 
-export const perMessageStore = new PersonalMessageStore();
+export const perMessageStore = new PerMessageStore();
