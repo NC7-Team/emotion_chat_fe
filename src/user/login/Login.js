@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import "./Login.css";
 import {
     GOOGLE_AUTH_URL,
-    FACEBOOK_AUTH_URL,
+    GITHUB_AUTH_URL,
     KAKAO_AUTH_URL, NAVER_AUTH_URL,
 } from "../../constants";
-import fbLogo from "../../img/fb-logo.png";
+import githublogo from "../../img/github-logo.png";
 import googleLogo from "../../img/google-logo.png";
 import kakaoLogo from "../../img/kakao-logo.png";
 import naveLogo from "../../img/naver-logo.png";
@@ -64,8 +64,8 @@ class SocialLogin extends Component {
           </a>
 
           <a
-              className="btn btn-block social-btn facebook" href={FACEBOOK_AUTH_URL}>
-            <img src={fbLogo} alt="Facebook" /> Log in with Facebook
+              className="btn btn-block social-btn facebook" href={GITHUB_AUTH_URL}>
+            <img src={githublogo} alt="Facebook" /> Log in with Github
           </a>
 
         </div>
