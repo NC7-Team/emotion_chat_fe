@@ -1,56 +1,73 @@
 import usePerMessageStore from "../../hooks/usePerMessageStore";
-import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import './list.css';
-import './button.scss';
+import UserList from "./userList2";
+import { useEffect } from "react";
 
-export default function PerRoomList() {
-  const perMessageStore = usePerMessageStore();
-  const [buttonHidden, setButtonHidden] = useState(true);
-  const [countdown, setCountdown] = useState(3);
+export default function RoomList() {
+  const messageStore = usePerMessageStore();
 
-  const { connected, currentRoomIndex, roomIndices } = perMessageStore;
 
-  const roomId = perMessageStore.getCurrentRoomId();
+
+  const getRoomName = (roomIndex) => {
+    switch (roomIndex) {
+      case 1:
+        return "화남";
+      case 2:
+        return "슬픔";
+      case 3:
+        return "기쁨";
+      default:
+        return "알 수 없음";
+    }
+  };
+
+  const { connected, currentRoomIndex, roomIndices } = messageStore;
+
+  const roomId = messageStore.getCurrentRoomId();
+
 
   const handleClickEnterRoom = ({ newRoomIndex }) => {
     if (connected) {
-      perMessageStore.disconnect(currentRoomIndex);
+      messageStore.disconnect(currentRoomIndex);
     }
-    perMessageStore.connect(newRoomIndex);
+    messageStore.connect(newRoomIndex);
   };
 
-  useEffect(() => {
-    let timer = setInterval(() => {
-      if (countdown > 0) {
-        setCountdown(countdown - 1);
-      } else {
-        setButtonHidden(false);
-        clearInterval(timer);
-      }
-    }, 1000);
-  }, [countdown]);
-
-  useEffect(() => {
-    if (!buttonHidden) {
-      handleClickEnterRoom({
-        newRoomIndex: roomIndices,
-      });
-    }
-  }, [buttonHidden]);
+  const handleClickQuitRoom = async () => {
+    messageStore.disconnect(currentRoomIndex);
+  };
 
   return (
-    <div style={{ position: 'absolute', left: '700px' }}>
-      {countdown > 0 && (
-        <div style={{ fontSize: '500px' }}>{countdown}</div>
-      )}
-      {/* {!buttonHidden && (
-        <button class="learn-more"
+    <div className="list-wrapper" style={{ position: 'absolute', left: '200px' }}>
+      <div className="room-list-container">
+        <ul className="room-list">
+          {roomIndices.map((roomIndex) => (
+            <li key={roomIndex} className="room-list-item">
+              <button
+                type="button"
+                disabled={roomIndex === currentRoomIndex}
+                onClick={() =>
+                  handleClickEnterRoom({
+                    previousRoomIndex: currentRoomIndex,
+                    newRoomIndex: roomIndex,
+                  })
+                }
+              >
+                {getRoomName(roomIndex)} 채팅방
+              </button>
+            </li>
+          ))}
+        </ul>
+        <button
           type="button"
-          disabled={roomIndices === currentRoomIndex}
+          disabled={!connected}
+          onClick={() => handleClickQuitRoom()}
         >
-          준비되면 클릭하세요
+          연결 종료
         </button>
-      )} */}
+        <UserList roomId={roomId} />
+      </div>
     </div>
   );
 }

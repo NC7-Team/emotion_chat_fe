@@ -113,7 +113,7 @@ const UserList = ({ roomId }) => {
       case 2:
         return '#FFD700'; // Room 2 background color
       case 3:
-        return '#90EE90'; // Room 3 background color
+        return '#90EA90'; // Room 3 background color
       default:
         return '#FFFFFF'; // Default background color
     }
