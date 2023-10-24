@@ -1,23 +1,26 @@
 import React from "react";
 import "./diary.css";
+import axios from "axios";
 
-const DiaryList = ({ entries, selectedDate, setDiaryEntries }) => {
+const DiaryList = ({ display, index, content }) => {
   const handleDeleteEntry = (index) => {
-    setDiaryEntries((prevEntries) => {
-      const newEntries = [...prevEntries];
-      newEntries.splice(index, 1);
-      return newEntries;
-    });
+    axios.delete(`/api/diary/${index}`)
+      .then(() => {
+        alert("삭제완료")
+        window.location.reload();
+      })
   };
 
   return (
     <div className="diary-list">
-      {entries.map((entry, index) => (
-        <div key={index} className="diary-entry">
-          <span>{entry}</span>
-          <button onClick={() => handleDeleteEntry(index)}>삭제</button>
-        </div>
-      ))}
+      {
+        display ?
+          <div key={index} className="diary-entry">
+            <span>{content}</span>
+            <button onClick={() => handleDeleteEntry(index)}>삭제</button>
+          </div>
+          : null
+      }
     </div>
   );
 };
