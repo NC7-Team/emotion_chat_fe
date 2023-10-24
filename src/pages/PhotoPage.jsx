@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./PhotoPage.css";
 import { withRouter } from "./WithRouter";
-import { getCurrentUser } from "../util/APIUtils";
 
 class PhotoPage extends Component {
   constructor(props) {
@@ -44,7 +43,6 @@ class PhotoPage extends Component {
     const canvas = this.canvasRef.current;
     const video = this.videoRef.current;
     const context = canvas.getContext("2d");
-    const userId = getCurrentUser();
 
     let imgBase64;
     let decodImg;
@@ -63,7 +61,6 @@ class PhotoPage extends Component {
     let array = [];
     for (let i = 0; i < decodImg.length; i++) {
       array.push(decodImg.charCodeAt(i));
-
     }
 
     file = new Blob([new Uint8Array(array)], { type: "image/jpeg" });
@@ -71,7 +68,7 @@ class PhotoPage extends Component {
     let formData = new FormData();
 
     formData.append("uploadFile", file, fileName);
-    formData.append("id", userId);
+    formData.append("id", 1);
 
     axios.post("/face", formData).then(response => {
       if (response.data === "no_person") {
