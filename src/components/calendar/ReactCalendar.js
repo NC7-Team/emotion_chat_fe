@@ -13,7 +13,6 @@ function App() {
   const [emotions, setEmotions] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
   const [diaryEntries, setDiaryEntries] = useState({});
-  const userId = 1;
 
   const emotionIcons = {
     HAPPY: "😀",
@@ -28,14 +27,6 @@ function App() {
       .catch((error) => {
         console.error("Error fetching emotions:", error);
       });
-
-    // axios.get(`/api/diary/${userId}/${selectedDate}`)
-    //   .then((response) => {
-    //     setDiaryEntries(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching diary entries:", error);
-    //   });
   }, []);
 
   const formatDateToLocalDateString = (date) => {
@@ -67,23 +58,6 @@ function App() {
       });
     }
 
-    // 선택한 날짜의 일기 항목 가져오기
-    // axios
-    //   .get(`/api/diary/${userId}/${formattedDate}`)
-    //   .then((response) => {
-    //     if (response.data && response.data.content) {
-    //       console.log(response.data)
-    //       setDiaryEntries({
-    //         [response.data.diaryId]: response.data.content,
-    //       });
-    //     } else {
-    //       // 일기 항목이 없는 경우 기존 항목 제거
-    //       setDiaryEntries({});
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error("선택한 날짜의 일기 항목을 가져오는 중 오류 발생:", error);
-    //   });
   };
 
 

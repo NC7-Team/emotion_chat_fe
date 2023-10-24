@@ -96,7 +96,6 @@ const Diary = ({ selectedDate, diaryEntries, setDiaryEntries }) => {
         {todayEmotion && <span>{emotionIcons[todayEmotion]}</span>}
       </div>
       <h4>{selectedDate} 한 줄 일기</h4> {/* 선택된 날짜를 표시 */}
-      {/* <DiaryList entries={entries} selectedDate={selectedDate} setDiaryEntries={setEntries} /> */}
       <DiaryList display={display} index={index} content={content} />
       <div className="input_wrapper">
         <textarea
