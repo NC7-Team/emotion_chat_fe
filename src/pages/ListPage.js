@@ -87,7 +87,7 @@ const ReactQuillTemplate = (props) => {
     "background",
   ];
   const multiPartClient = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: "https://moodcanvas.site",
     timeout: 5000,
     headers: {
       "Content-Type": "multipart/form-data",

@@ -43,7 +43,7 @@ const Diary = ({ currentUserId, selectedDate, diaryEntries, setDiaryEntries }) =
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/chatlogs/emotions/1")
+      .get("https://moodcanvas.site/api/chatlogs/emotions/1")
       .then((response) => {
         const formattedDate = selectedDate; // 선택된 날짜로 변경
         const todayEmotionData = response.data[formattedDate];

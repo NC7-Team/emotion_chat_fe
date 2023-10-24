@@ -2,7 +2,7 @@ import Stomp from "stompjs";
 import SockJS from "sockjs-client";
 import { messageService } from "../services/MessageService";
 
-const baseUrl = "http://localhost:8080";
+const baseUrl = "https://moodcanvas.site";
 
 export default class MessageStore {
   constructor() {
