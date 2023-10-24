@@ -9,6 +9,7 @@ const Room = () => {
     connected,
     messageEntered,
     messageLogs,
+    currentRoomIndex,
   } = messageStore;
 
 
@@ -43,22 +44,28 @@ const Room = () => {
     return null;
   }
 
-  // 채팅방의 이름을 표시하는 변수
-  let roomName = "";
 
-  // 채팅방의 이름을 설정
-  // if (window.location.pathname.includes("happiness")) {
-  // roomName = "기쁨";
-  // } else if (window.location.pathname.includes("sadness")) {
-  // roomName = "슬픔";
-  // } else if (window.location.pathname.includes("anger")) {
-  //  roomName = "화남";
-  // }
+  const getRoomName = (roomIndex) => {
+    switch (roomIndex) {
+      case 1:
+        return "화남";
+      case 2:
+        return "슬픔";
+      case 3:
+        return "기쁨";
+      default:
+        return "알 수 없음";
+    }
+  };
+  // 채팅방의 이름을 표시하는 변수
+  // const roomName = "";
+  const roomName = getRoomName(currentRoomIndex);
+  const roomBackgroundClass = `room-background-${currentRoomIndex}`;
 
   return (
     <div className="chat-wrapper" style={{ position: 'absolute', right: '200px' }}>
-      <h2>{roomName} Emotion Chat</h2>
-      <div className="chat-container">
+      <h2>{roomName} 방</h2>
+      <div className={`chat-container ${roomBackgroundClass}`}>
         <ul className="message-list">
           {messageLogs.map((message, index) => (
             <li

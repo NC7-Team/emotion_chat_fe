@@ -2,10 +2,11 @@
   margin-top: 40px;
   display: flex;
   flex-direction: column;
-  background-color: #f7f7f7;
+  background-color: #c9c9db;
   width: 500px;
   height: 600px;
-  align-self: flex-end; 
+  align-self: flex-end;
+   
 }
 
 .chat-container {
@@ -15,6 +16,7 @@
   overflow-y: auto;
   width: 500px;
   flex: 1;
+  margin-top: 20px;
   margin-right: 10px;
 }
 
@@ -86,4 +88,18 @@ h2 {
   cursor: pointer;
 }
 
+
+
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
 

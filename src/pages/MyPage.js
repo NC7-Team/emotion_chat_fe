@@ -16,7 +16,6 @@ export default function MyPage(props) {
                 <Recommend />
             </div>
             <div className="user-name">
-                <span>{props.currentUser.name}</span>
             </div>
         </div>
     );

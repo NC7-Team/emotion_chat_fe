@@ -1,104 +1,117 @@
-import React, { useState, useEffect } from "react";
-import usePerMessageStore from "../../hooks/usePerMessageStore";
-import './chat.css';
-import UserList from "./userList";
-
+import React, { useState, useEffect, useRef } from 'react';
+import useMessageStore from '../../hooks/useMessageStore';
+import './chat2.css';
 
 const PerRoom = () => {
-  const permessageStore = usePerMessageStore();
-  const [showEnterMessage, setShowEnterMessage] = useState(true);
-
+  const MessageStore = useMessageStore();
 
   const {
     connected,
     messageEntered,
     messageLogs,
-  } = permessageStore;
+  } = MessageStore;
 
-  const roomId = permessageStore.getCurrentRoomId();
+  const [period, setPeriod] = useState(300); // 초기 카운트다운 시간
+  const [remainingTime, setRemainingTime] = useState('');
 
+  const messageListRef = useRef(null); // 메시지 목록 요소에 대한 참조
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowEnterMessage(false);
-    }, 3000);
+    let tid;
 
-    return () => clearTimeout(timeout);
-  }, []);
+    const beforeUnloadListener = () => {
+      if (connected) {
+        MessageStore.disconnect();
+      }
+    };
 
-  const beforeUnloadListener = (() => {
+    const countdownClock = () => {
+      setPeriod((prevPeriod) => {
+        if (prevPeriod <= 0) {
+          clearTimeout(tid);
+          // 페이지 이동 또는 원하는 작업 수행
+          window.location.href = 'autoPhoto';
+          return 0;
+        }
+
+        const minutes = Math.floor((prevPeriod / 60) % 60);
+        const seconds = prevPeriod % 60;
+        setRemainingTime(`${minutes}분 ${seconds}초`);
+
+        tid = setTimeout(countdownClock, 1000);
+        return prevPeriod - 1;
+      });
+    };
+
+    window.addEventListener('beforeunload', beforeUnloadListener);
     if (connected) {
-      permessageStore.disconnect();
+      countdownClock();
     }
-  });
 
-  window.addEventListener('beforeunload', beforeUnloadListener);
+    return () => {
+      window.removeEventListener('beforeunload', beforeUnloadListener);
+      clearTimeout(tid);
+    };
+  }, [connected]);
 
+  // 메시지가 업데이트될 때 스크롤을 자동으로 아래로 이동
+  useEffect(() => {
+    if (messageListRef.current) {
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+    }
+  }, [messageLogs]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    permessageStore.sendMessage({ type: 'message' });
+    MessageStore.sendMessage({ type: 'message' });
   };
 
   const handleChangeInput = (event) => {
     const { value } = event.target;
-    permessageStore.changeInput(value);
+    MessageStore.changeInput(value);
   };
-
-
 
   if (!connected) {
     return null;
   }
 
+  // 채팅방의 이름을 표시하는 변수
+  let roomName = "";
+
   return (
-    <div className="chat-wrapper">
-      {showEnterMessage && (
-        <div className="enter-message-container ">
+    <div className="chat-wrapper" style={{ position: 'relative', left: '540px' , top:'40px'}}>
+      <h2>{roomName} 상대의 마음을 무너뜨리세요!</h2>
+      <div className="chat-container" ref={messageListRef}>
+        <ul className="message-list">
           {messageLogs.map((message, index) => (
-            message.type === 'enterMessage' && (
+            <li
+              key={index}
+              className={message.sentByUser ? 'userMessage' : 'otherMessage'}
+            >
               <div
-                key={index}
-                className="enter-message"
+                className="bubble"
+                style={{
+                  backgroundColor: message.sentByUser ? '#c6e3fa' : '#BDBDBD',
+                }}
               >
                 {message.value}
               </div>
-            )
-          ))}
-        </div>
-      )}
-
-      <UserList roomId={roomId} />
-
-
-      <div className="user-list-container">
-      </div>
-      <div className="chat-container">
-        <ul className="message-list">
-          {messageLogs.map((message, index) => (
-            message.type !== 'enterMessage' && (
-              <li key={index} className={message.sentByUser ? 'userMessage' : 'otherMessage'}>
-                {message.value}
-              </li>
-            )
+            </li>
           ))}
         </ul>
+
         <form onSubmit={handleSubmit} className="message-input-form">
-          <label htmlFor="message-to-send">메시지 입력</label>
           <input
             type="text"
             value={messageEntered}
             onChange={handleChangeInput}
             className="message-input"
           />
-          <button type="submit" className="submit-button">전송</button>
+          <button type="submit" className="submit-button">send</button>
         </form>
-      </div>
-      <div style={{ position: "relative", height: "500px" }}>
       </div>
     </div>
   );
-
 }
 
 export default PerRoom;

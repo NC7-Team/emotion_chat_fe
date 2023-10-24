@@ -1,23 +1,16 @@
-import React, { useState, useEffect } from "react";
 import usePerMessageStore from "../../hooks/usePerMessageStore";
+import React, { useState, useEffect } from "react";
 import './list.css';
-import UserList from "./userList";
+import './button.scss';
 
 export default function PerRoomList() {
   const perMessageStore = usePerMessageStore();
+  const [buttonHidden, setButtonHidden] = useState(true);
+  const [countdown, setCountdown] = useState(3);
+
   const { connected, currentRoomIndex, roomIndices } = perMessageStore;
+
   const roomId = perMessageStore.getCurrentRoomId();
-  const [roomTitle, setRoomTitle] = useState("");
-  const maxRoomSize = 2;
-  const maxRooms = 8;
-
-  useEffect(() => {
-    fetchRoomList();
-  }, [perMessageStore]);
-
-  const getRoomSize = (roomIndex) => {
-    return perMessageStore.getRoomMemberCount(roomIndex).length;
-  }
 
   const handleClickEnterRoom = ({ newRoomIndex }) => {
     if (connected) {
@@ -26,88 +19,38 @@ export default function PerRoomList() {
     perMessageStore.connect(newRoomIndex);
   };
 
-  const handleClickQuitRoom = async () => {
-    perMessageStore.disconnect(currentRoomIndex);
-  };
-
-  const fetchRoomList = () => {
-    fetch("http://localhost:8080/rooms/all")
-      .then((response) => response.json())
-      .then((data) => {
-        perMessageStore.roomIndices = data.map((room) => room.roomIndex);
-        perMessageStore.publish();
-      });
-  };
-
-  const createOrJoinRoom = (roomTitle) => {
-    fetch("http://localhost:8080/rooms/createOrJoin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ roomTitle }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data) {
-          if (connected) {
-            perMessageStore.disconnect(currentRoomIndex);
-          }
-          perMessageStore.connect(data.roomIndex);
-        } else {
-          console.log("최대 인원을 초과하여 방 생성 또는 입장 불가");
-        }
-        setRoomTitle("");
-      });
-  };
+  useEffect(() => {
+    let timer = setInterval(() => {
+      if (countdown > 0) {
+        setCountdown(countdown - 1);
+      } else {
+        setButtonHidden(false);
+        clearInterval(timer);
+      }
+    }, 1000);
+  }, [countdown]);
 
   useEffect(() => {
-    fetchRoomList();
-  }, [perMessageStore]);
+    if (!buttonHidden) {
+      handleClickEnterRoom({
+        newRoomIndex: roomIndices,
+      });
+    }
+  }, [buttonHidden]);
 
   return (
-    <div className="list-wrapper" style={{ position: 'absolute', left: '200px' }}>
-      <div className="room-list-container">
-        <ul className="room-list">
-          {roomIndices.map((roomIndex) => (
-            <li key={roomIndex} className="room-list-item">
-              <button
-                type="button"
-                disabled={roomIndex === currentRoomIndex || getRoomSize(roomIndex) >= maxRoomSize}
-                onClick={() => handleClickEnterRoom({ newRoomIndex: roomIndex })}
-              >
-                {perMessageStore.getRoomTitle(roomIndex)} 채팅방 ({getRoomSize(roomIndex)}/{maxRoomSize})
-              </button>
-            </li>
-          ))}
-        </ul>
-        <div className="create-room">
-          <input
-            type="text"
-            placeholder="방 제목을 입력하세요"
-            value={roomTitle}
-            onChange={(e) => setRoomTitle(e.target.value)}
-          />
-          {roomIndices.length < maxRooms && (
-            <button
-              type="button"
-              onClick={() => createOrJoinRoom(roomTitle)}
-            >
-              방 생성 또는 입장
-            </button>
-          )}
-        </div>
-        <button
+    <div style={{ position: 'absolute', left: '700px' }}>
+      {countdown > 0 && (
+        <div style={{ fontSize: '500px' }}>{countdown}</div>
+      )}
+      {/* {!buttonHidden && (
+        <button class="learn-more"
           type="button"
-          disabled={!connected}
-          onClick={() => handleClickQuitRoom()}
+          disabled={roomIndices === currentRoomIndex}
         >
-          연결 종료
+          준비되면 클릭하세요
         </button>
-        <UserList roomId={roomId} />
-      </div>
+      )} */}
     </div>
   );
 }
-
-
