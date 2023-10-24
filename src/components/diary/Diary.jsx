@@ -4,7 +4,7 @@ import "./diary.css";
 import Button from "./Button";
 import DiaryList from "./DiaryList";
 
-const Diary = ({ currentUserId, selectedDate, diaryEntries, setDiaryEntries }) => {
+const Diary = ({ currentUser, selectedDate, diaryEntries, setDiaryEntries }) => {
   const [state, setState] = useState({ content: "" });
   const [entries, setEntries] = useState([]);
   const [display, setDisplay] = useState(false);
@@ -23,13 +23,13 @@ const Diary = ({ currentUserId, selectedDate, diaryEntries, setDiaryEntries }) =
     setState({ content: "" });
 
     let formData = new FormData();
-    formData.append("userId", currentUserId);
+    formData.append("userId", currentUser);
     formData.append("date", selectedDate);
     formData.append("entry", newEntry);
 
     axios.post("/api/diary/create", formData)
       .then(() => {
-        axios.get(`/api/diary/${currentUserId}/${selectedDate}`)
+        axios.get(`/api/diary/${currentUser}/${selectedDate}`)
           .then((response) => {
             setDisplay(true)
             setIndex(response.data.diaryId)
@@ -59,7 +59,7 @@ const Diary = ({ currentUserId, selectedDate, diaryEntries, setDiaryEntries }) =
     // 선택된 날짜에 해당하는 일기를 불러옵니다.
     if (selectedDate) {
       axios
-        .get(`/api/diary/${currentUserId}/${selectedDate}`)
+        .get(`/api/diary/${currentUser}/${selectedDate}`)
         .then((response) => {
           console.log(response.data)
           if (response.data) {
