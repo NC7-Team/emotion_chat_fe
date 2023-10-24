@@ -2,11 +2,18 @@
   margin-top: 40px;
   display: flex;
   flex-direction: column;
-  background-color: #c9c9db;
+  background-color: #fff0f0;
   width: 500px;
   height: 600px;
   align-self: flex-end;
-   
+}
+
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 수평으로 가운데 정렬 */
+  justify-content: center; /* 수직으로 가운데 정렬 */
+  height: 100%; /* 부모 요소의 전체 높이를 차지하도록 설정 */
 }
 
 .chat-container {
@@ -16,7 +23,7 @@
   overflow-y: auto;
   width: 500px;
   flex: 1;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   margin-right: 10px;
 }
 
@@ -31,6 +38,8 @@ h2 {
   list-style: none;
   padding: 0;
   flex: 1;
+  max-height: 100%; /* 최대 높이를 100%로 설정 */
+  overflow-y: scroll; /* 세로 스크롤 활성화 */
 }
 
 .userMessage {
@@ -88,18 +97,4 @@ h2 {
   cursor: pointer;
 }
 
-
-
-
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
 

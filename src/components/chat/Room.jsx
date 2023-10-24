@@ -12,16 +12,6 @@ const Room = () => {
     currentRoomIndex,
   } = messageStore;
 
-
-
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     setShowEnterMessage(false);
-  //   }, 3000);
-
-  //   return () => clearTimeout(timeout); 
-  // }, []);
-
   const beforeUnloadListener = (() => {
     if (connected) {
       messageStore.disconnect();

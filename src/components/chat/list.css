@@ -2,15 +2,16 @@ h7 {
   text-align: center;
 }
 
-.list-wrapper {
+
+/* .list-wrapper {
     margin-top: 40px;
     display: flex;
     flex-direction: column;
-    background-color: #f7f7f7;
+    background-color: #9d0000;
     width: 500px; 
     height: 600px; 
 
-  }
+  } */
 
 .room-list-container {
     padding: 10px; 
@@ -30,3 +31,17 @@ h7 {
 .room-list-item {
     margin-right: 10px; 
   }
+
+  .additional-text {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    left: 470px;
+    top: 90px;
+    font-family: sans-serif;
+    font-size: 20px;
+  }
+
+
+
