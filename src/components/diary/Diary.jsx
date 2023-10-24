@@ -25,7 +25,7 @@ export default function Diary(props) {
 
       let formData = new FormData();
       formData.append("userId", props.currentUser.id);
-      console.log(currentUserId);
+      console.log(props.currentUser.id);
       formData.append("date", selectedDate);
       console.log(selectedDate);
       formData.append("entry", newEntry);
