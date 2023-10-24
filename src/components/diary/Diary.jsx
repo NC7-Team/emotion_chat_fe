@@ -12,6 +12,8 @@ const Diary = (props, { selectedDate }) => {
   const [content, setContent] = useState([]);
   const [todayEmotion, setTodayEmotion] = useState(null);
   console.log(props);
+  console.log(props.currentUser);
+  console.log(props.currentUser.id);
 
   const handleChangeContent = (e) => {
     setState({ ...state, content: e.target.value });
@@ -46,19 +48,19 @@ const Diary = (props, { selectedDate }) => {
   };
 
   useEffect(() => {
-    // axios
-    //   .get("https://moodcanvas.site/api/chatlogs/emotions/1")
-    //   .then((response) => {
-    //     const formattedDate = selectedDate; // 선택된 날짜로 변경
-    //     const todayEmotionData = response.data[formattedDate];
+    axios
+      .get(`https://moodcanvas.site/api/chatlogs/emotions/${props.currentUser.id}`)
+      .then((response) => {
+        const formattedDate = selectedDate;
+        const todayEmotionData = response.data[formattedDate];
 
-    //     if (todayEmotionData) {
-    //       setTodayEmotion(todayEmotionData);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching emotions:", error);
-    //   });
+        if (todayEmotionData) {
+          setTodayEmotion(todayEmotionData);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching emotions:", error);
+      });
 
     // 선택된 날짜에 해당하는 일기를 불러옵니다.
     if (selectedDate) {
