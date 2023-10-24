@@ -23,6 +23,22 @@ class PhotoPage extends Component {
     }
   }
 
+  componentWillUnmount() {
+    const video = this.videoRef.current;
+    if (video && video.srcObject) {
+      const stream = video.srcObject;
+      if (stream.getTracks) {
+        stream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      } else {
+        stream.getVideoTracks().forEach((track) => {
+          track.stop();
+        });
+      }
+    }
+  }
+
   posting = () => {
     const canvas = this.canvasRef.current;
     const video = this.videoRef.current;
@@ -52,6 +68,7 @@ class PhotoPage extends Component {
     fileName = "canvas_img_" + new Date().getMilliseconds() + ".jpg";
     let formData = new FormData();
     formData.append("uploadFile", file, fileName);
+    formData.append("id", this.props.currentUser.id);
 
     axios.post("/face", formData).then(response => {
       if (response.data === "no_person") {
