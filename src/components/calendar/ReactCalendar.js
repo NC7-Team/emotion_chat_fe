@@ -14,7 +14,8 @@ function App(props) {
   const [emotions, setEmotions] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
   const [diaryEntries, setDiaryEntries] = useState({});
-  const [userId] = useState(props.currentUser.id);
+  const [userId, setUserId] = useState(props.currentUser.id);
+  setUserId(props.currentUser.id)
 
   const emotionIcons = {
     HAPPY: "😀",

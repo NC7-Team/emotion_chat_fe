@@ -45,19 +45,19 @@ const Diary = ({ currentUserId, selectedDate, diaryEntries, setDiaryEntries }) =
   };
 
   useEffect(() => {
-    axios
-      .get("https://moodcanvas.site/api/chatlogs/emotions/1")
-      .then((response) => {
-        const formattedDate = selectedDate; // 선택된 날짜로 변경
-        const todayEmotionData = response.data[formattedDate];
+    // axios
+    //   .get("https://moodcanvas.site/api/chatlogs/emotions/1")
+    //   .then((response) => {
+    //     const formattedDate = selectedDate; // 선택된 날짜로 변경
+    //     const todayEmotionData = response.data[formattedDate];
 
-        if (todayEmotionData) {
-          setTodayEmotion(todayEmotionData);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching emotions:", error);
-      });
+    //     if (todayEmotionData) {
+    //       setTodayEmotion(todayEmotionData);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching emotions:", error);
+    //   });
 
     // 선택된 날짜에 해당하는 일기를 불러옵니다.
     if (selectedDate) {
