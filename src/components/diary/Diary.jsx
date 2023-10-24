@@ -4,16 +4,15 @@ import "./diary.css";
 import Button from "./Button";
 import DiaryList from "./DiaryList";
 
-const Diary = (props, { selectedDate }) => {
+const Diary = (props) => {
   const [state, setState] = useState({ content: "" });
   const [entries, setEntries] = useState([]);
   const [display, setDisplay] = useState(false);
   const [index, setIndex] = useState([]);
   const [content, setContent] = useState([]);
   const [todayEmotion, setTodayEmotion] = useState(null);
-  console.log(props);
-  console.log(props.currentUser);
-  console.log(props.currentUser.id);
+  const selectedDate = props.selectedDate;
+  const userId = props.currentUser.id;
 
   const handleChangeContent = (e) => {
     setState({ ...state, content: e.target.value });
@@ -35,7 +34,7 @@ const Diary = (props, { selectedDate }) => {
 
     axios.post("/api/diary/create", formData)
       .then(() => {
-        axios.get(`/api/diary/${props.currentUser.id}/${selectedDate}`)
+        axios.get(`/api/diary/${userId}/${selectedDate}`)
           .then((response) => {
             setDisplay(true)
             setIndex(response.data.diaryId)
@@ -49,13 +48,15 @@ const Diary = (props, { selectedDate }) => {
 
   useEffect(() => {
     axios
-      .get(`https://moodcanvas.site/api/chatlogs/emotions/${props.currentUser.id}`)
+      .get(`/api/chatlogs/emotions/${props.currentUser.id}`)
       .then((response) => {
-        const formattedDate = selectedDate;
+        const formattedDate = selectedDate; // 선택된 날짜로 변경
         const todayEmotionData = response.data[formattedDate];
 
         if (todayEmotionData) {
           setTodayEmotion(todayEmotionData);
+        } else {
+          setTodayEmotion(null);
         }
       })
       .catch((error) => {
@@ -67,7 +68,6 @@ const Diary = (props, { selectedDate }) => {
       axios
         .get(`/api/diary/${props.currentUser.id}/${selectedDate}`)
         .then((response) => {
-          console.log(response.data)
           if (response.data) {
             setDisplay(true)
             setIndex(response.data.diaryId)

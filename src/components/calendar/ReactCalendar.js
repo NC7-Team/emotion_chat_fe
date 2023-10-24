@@ -98,6 +98,7 @@ function App(props) {
       />
       {selectedDate && (
         <Diary
+          currentUser={props.currentUser}
           selectedDate={selectedDate}
         />
       )}
