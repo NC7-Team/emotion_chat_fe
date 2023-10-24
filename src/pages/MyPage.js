@@ -7,7 +7,7 @@ export default function MyPage(props) {
   return (
     <div className="my-page">
       <div className="diary-area">
-        <Diary />
+        <Diary currentUser={props.currentUser} />
       </div>
       <div>
         <ReactCalendar currentUser={props.currentUser} />
