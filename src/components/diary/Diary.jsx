@@ -24,8 +24,11 @@ const Diary = ({ currentUserId, selectedDate, diaryEntries, setDiaryEntries }) =
 
     let formData = new FormData();
     formData.append("userId", currentUserId);
+    console.log(currentUserId);
     formData.append("date", selectedDate);
+    console.log(selectedDate);
     formData.append("entry", newEntry);
+    console.log(newEntry);
 
     axios.post("/api/diary/create", formData)
       .then(() => {

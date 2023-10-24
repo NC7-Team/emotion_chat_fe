@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./PhotoPage.css";
 import { withRouter } from "./WithRouter";
+import { getCurrentUser } from "../util/APIUtils";
 
 class PhotoPage extends Component {
   constructor(props) {
@@ -45,8 +46,10 @@ class PhotoPage extends Component {
     let array = [];
     for (let i = 0; i < decodImg.length; i++) {
       array.push(decodImg.charCodeAt(i));
-
     }
+
+    let currentUser = getCurrentUser();
+    console.log(currentUser);
 
     file = new Blob([new Uint8Array(array)], { type: "image/jpeg" });
     fileName = "canvas_img_" + new Date().getMilliseconds() + ".jpg";
