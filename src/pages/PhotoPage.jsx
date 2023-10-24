@@ -45,13 +45,13 @@ class PhotoPage extends Component {
     let array = [];
     for (let i = 0; i < decodImg.length; i++) {
       array.push(decodImg.charCodeAt(i));
-
     }
 
     file = new Blob([new Uint8Array(array)], { type: "image/jpeg" });
     fileName = "canvas_img_" + new Date().getMilliseconds() + ".jpg";
     let formData = new FormData();
     formData.append("uploadFile", file, fileName);
+    formData.append("id", 1);
 
     axios.post("/face", formData).then(response => {
       if (response.data === "no_person") {
