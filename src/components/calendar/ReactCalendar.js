@@ -4,12 +4,16 @@ import axios from "axios";
 import styles from "./ReactCalendar.module.css";
 import "./custom-calendar-style.css";
 import moment from "moment";
+import Diary from "../diary/Diary";
+import DiaryList from "../diary/DiaryList";
 
 
 moment.locale("en");
 
 function App(props) {
   const [emotions, setEmotions] = useState({});
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [diaryEntries, setDiaryEntries] = useState({});
 
   const emotionIcons = {
     HAPPY: "😀",
@@ -28,12 +32,34 @@ function App(props) {
       });
   }, [props.currentUser]);
 
-
   const formatDateToLocalDateString = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
+  };
+
+  const handleDateClick = (date) => {
+    const formattedDate = formatDateToLocalDateString(date);
+    setSelectedDate(formattedDate);
+
+    // 선택한 날짜에 대한 감정 가져오기
+    const emotionsForDate = emotions[formattedDate];
+
+    // 선택한 날짜의 감정 설정하기
+    if (emotionsForDate) {
+      setEmotions((prevEmotions) => ({
+        ...prevEmotions,
+        [formattedDate]: emotionsForDate,
+      }));
+    } else {
+      // 감정이 없는 경우 기존 감정 제거
+      setEmotions((prevEmotions) => {
+        const updatedEmotions = { ...prevEmotions };
+        delete updatedEmotions[formattedDate];
+        return updatedEmotions;
+      });
+    }
   };
 
   const formatDay = (locale, date) => {
@@ -65,7 +91,26 @@ function App(props) {
 
   return (
     <div className="App">
-      <Calendar formatDay={formatDay} tileContent={renderEmotionsAndDate} />
+      <Calendar
+        onClickDay={handleDateClick}
+        formatDay={formatDay}
+        tileContent={renderEmotionsAndDate}
+      />
+      {selectedDate && (
+        <Diary
+          currentUser={props.currentUser.id}
+          selectedDate={selectedDate}
+          diaryEntries={diaryEntries}
+          setDiaryEntries={setDiaryEntries}
+        />
+      )}
+      {selectedDate && (
+        <DiaryList
+          entries={diaryEntries[selectedDate] || []}
+          selectedDate={selectedDate}
+          setDiaryEntries={setDiaryEntries}
+        />
+      )}
     </div>
   );
 }
