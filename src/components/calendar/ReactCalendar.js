@@ -99,8 +99,6 @@ function App(props) {
       {selectedDate && (
         <Diary
           selectedDate={selectedDate}
-          diaryEntries={diaryEntries}
-          setDiaryEntries={setDiaryEntries}
         />
       )}
       {selectedDate && (
