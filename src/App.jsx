@@ -84,7 +84,7 @@ class App extends Component {
             {/*로그인이 필요한 로직*/}
             <Route path="/perchat" element={this.state.authenticated ? <PerChattingPage /> : <Login />} />
             <Route path="/login" element={this.state.authenticated ? (<Navigate to="/mypage" currentUser={this.state.currentUser} />) : (<Login />)} />
-            <Route path="/mypage" element={this.state.authenticated ? <MyPage currentUser={this.state.currentUser} /> : <Login />} />
+            <Route path="/mypage" element={<MyPage currentUser={{ id: 4 }} />} />
             <Route path="/photo" element={this.state.authenticated ? <PhotoPage currentUser={this.state.currentUser} /> : <Login />} />
             <Route path="/chat" element={this.state.authenticated ? <ChattingPage currentUser={this.state.currentUser} /> : <Login />} />
           </Routes>

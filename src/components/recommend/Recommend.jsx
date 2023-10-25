@@ -15,7 +15,7 @@ const Recommend = (props) => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_ENDPOINT}/api/adrecommendations/recommend/${props.currentUser.id}`)
+      .get(`http://localhost:8080/api/adrecommendations/recommend/4`)
       .then((response) => {
         const data = response.data;
 
